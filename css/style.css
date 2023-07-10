@@ -153,4 +153,9 @@ Extra (xl) large devices (large desktops, 1200px and up)
 }
 #register-block {
   padding-top: 40px;
+  align-content: center;
+  align-items: center;
+}
+#last-line {
+  align-self: center;
 }

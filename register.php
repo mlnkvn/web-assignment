@@ -1,56 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register page</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="top-bar">
-        <div class="container">
-            <div class="col-12 text-right">
-                <!-- TODO  -->
-            </div>
-        </div> 
-    </div>
+<?php
+    include_once 'header.php'
+?>
 
-    <nav class="navbar bg-light navbar-light navbar-expand-lg"> 
-        <div class="container">
-            <a href="index.php" class="navbar-brand"><img src="img/logo.png" alt="Oops!"></a> 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                <span class="navbar-toggler-icon"></span> 
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarResponsive"> 
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="index.php" class="nav-link active">Home</a></li> 
-                <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="login.php" class="nav-link">Log in</a></li>
-                <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li> 
-                <li class="nav-item"><a href="faq.php" class="nav-link">FAQ</a></li>
-            </ul>
-        </div>
-    </nav> 
-    <div align="center" id="register-block">
+<div align="center" id="register-block">
 
     <h3>REGISTER</h3>
-        <form id="register-form" method="post" action="registerscript.php" >
-            <table border="0.5" >
-                <tr>
-                    <td><label for="user_id">User name</label></td>
-                    <td><input type="text" name="user_id" id="user_id"></td>
-                </tr>
-                <tr>
-                    <td><label for="user_pass">Password</label></td>
-                    <td><input type="password" name="user_pass" id="user_pass"></input></td>
-                </tr>
-                <tr>
+    <form id="register-form" method="post" action="actions/registerscript.php" >
+        <table border="0.5">
+            <tr>
+                <td><label for="user_name">Name</label></td>
+                <td><input type="text" name="user_name" id="user_name"></td>
+            </tr>
+            <tr>
+                <td><label for="user_email">Email</label></td>
+                <td><input type="text" name="user_email" id="user_email"></td>
+            </tr>
+            <tr>
+                <td><label for="user_id">User name</label></td>                    
+                <td><input type="text" name="user_id" id="user_id"></td>
+            </tr>
+            <tr>
+                <td><label for="user_pass">Password</label></td>
+                <td><input type="password" name="user_pass" id="user_pass"></input></td>
+            </tr>
+            <tr>
+                <div id="last-line">
                     <td><input type="reset" value="Reset"/>
-                    <td><input type="submit" value="Register" />
-                </tr>
-            </table>
-        </form>
-    </div>
+                    <td><input type="submit" name="submit" value="Register"/>
+                </div>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<?php
+    if (isset($_GET["error"])) {
+        if ($_GET["error"] == "emptyinput") {
+            echo "<p>All fields should be complete.</p>";
+        }
+        else if ($_GET["error"] == "invaliduid") {
+            echo "<p>Provided username is incorrect. Correct username should contain latin letters and digits.</p>";
+        } 
+        else if ($_GET["error"] == "invalidemail") {
+            echo "<p>Provided email is incorret.</p>";
+        }
+        else if ($_GET["error"] == "existinguserid") {
+            echo "<p>This username is already taken.</p>";
+        }
+        else if ($_GET["error"] == "stmtfailed") {
+            echo "<p>Something went wrong. Try again later.</p>";
+        } 
+        else if ($_GET["error"] == "none") {
+            echo "<p>You registered successfully! Now you can log in.</p>";
+        } 
+    }
+?>
+
 </body>
 </html>
