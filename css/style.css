@@ -2,6 +2,7 @@ body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
   color: #616971;
+  margin: 0px;
 }
 
 .top-bar { 
@@ -20,15 +21,20 @@ body {
 }
 
 .navbar {
-  font-size: 16px; 
+  float: left;
+  font-size: 16px;
   font-weight: 600; 
-  letter-spacing: 1.5;
   white-space: nowrap;
   box-shadow: 5px 5px 5px rgba(0,0,0,.1);
+  width: 100%;
+  border-top: 1px solid #2b2e30;
+  overflow: hidden;
+  min-width: 650px;
 }
 
 .nav-item {
-  padding: 0 100px;
+  box-sizing: border-box;
+  padding: 0 10%;
 }
 
 .nav-link {color: #5b5555!important}

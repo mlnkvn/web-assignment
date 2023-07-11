@@ -27,10 +27,9 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive"> 
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a href="index.php" class="nav-link active">Home</a></li> 
-				<li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-				<li class="nav-item"><a href="login.php" class="nav-link">Log in</a></li>
-				<li class="nav-item"><a href="register.php" class="nav-link">Register</a></li> 
-				<li class="nav-item"><a href="faq.php" class="nav-link">FAQ</a></li>
+				<li class="nav-item"><a href="category.php" class="nav-link">Categories</a></li>
+                <li class="nav-item"><a href="shopping_cart.php" class="nav-link">Shopping Cart</a></li>
+				<li class="nav-item"><a href="login.php" class="nav-link">Login/Register</a></li>
 			</ul>
 		</div>
 	</nav> 

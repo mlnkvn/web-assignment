@@ -33,6 +33,10 @@
     </form>
 </div>
 
+<p><a href="login.php">I already have an account</a></p>
+
+
+
 <?php
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "emptyinput") {

@@ -22,6 +22,8 @@
         </form>
     </div>
 
+<p><a href="register.php">Don't have an account? Create one!</a></p>
+
 <?php
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "emptyinput") {

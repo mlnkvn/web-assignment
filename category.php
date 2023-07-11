@@ -2,6 +2,7 @@
     include_once 'header.php'
 ?>
 
-<img src="img/about/text.png" alt="Oops!">
+<h2>Category Page content here</h2>
+
 </body>
 </html>

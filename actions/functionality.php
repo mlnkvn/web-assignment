@@ -92,13 +92,14 @@ function existingUsernameLogin($con, $user_id) {
 
     $result = mysqli_stmt_get_result($stmt);
     if ($row = mysqli_fetch_assoc($result)) {
+        mysqli_stmt_close($stmt);
         return $row;
     }
     else {
+        mysqli_stmt_close($stmt);
         $result = false;
         return $result;
     }
-    mysqli_stmt_close($stmt);
 }
 
 function loginUser($con, $username, $password) {
@@ -116,9 +117,16 @@ function loginUser($con, $username, $password) {
     }
     else if ($validatePwd === true) {
         session_start();
+        $_SESSION["loggedIn"] = true;
         $_SESSION["userId"] = $getUser["usersId"];
         $_SESSION["username"] = $getUser["usersUid"];
-        header("location: ../index.php");
+        $_SESSION["level"] = $getUser["usersLevel"];
+
+        if ($_SESSION["level"] == 0) {
+            header("location: ../user/indexuser.php");
+        } else {
+            header("location: ../admin/indexadmin.php");
+        }
         exit();
     }
 }
