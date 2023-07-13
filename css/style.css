@@ -1,8 +1,8 @@
 body {
   overflow-x: hidden;
   font-family: 'Montserrat', sans-serif;
-  color: #616971;
-  margin: 0px;
+  color: hsl(210, 8%, 41%);
+  /* margin: 0px; */
 }
 
 .top-bar { 
@@ -17,24 +17,38 @@ body {
 }
 
 .navbar-brand img {
+  /* float: left; */
   height: 50px;
 }
 
 .navbar {
-  float: left;
-  font-size: 16px;
+  /* float: left; */
+  font-size: 15px;
   font-weight: 600; 
-  white-space: nowrap;
+  letter-spacing: 1.4;
+  /* white-space: nowrap; */
   box-shadow: 5px 5px 5px rgba(0,0,0,.1);
   width: 100%;
   border-top: 1px solid #2b2e30;
   overflow: hidden;
-  min-width: 650px;
+  /* min-width: 650px; */
 }
 
 .nav-item {
   box-sizing: border-box;
-  padding: 0 10%;
+  padding: 0 100px;
+  display: inline-block;
+}
+
+.navbar-collapse {
+  padding: 0;
+  position: fixed;
+  width:100%;
+}
+
+.navbar-collapse li {
+  display:inline-block;
+  /* float:left; */
 }
 
 .nav-link {color: #5b5555!important}
