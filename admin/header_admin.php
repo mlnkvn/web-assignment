@@ -24,15 +24,27 @@
 <nav class="navbar bg-light navbar-light navbar-expand-lg">
     <div class="container">
         <a href="indexadmin.php" class="navbar-brand"><img src="../img/logo.png" alt="Oops!"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a href="indexadmin.php" class="nav-link active">Home</a></li>
             <li class="nav-item"><a href="categoryadmin.php" class="nav-link">Category Page</a></li>
-            <!--            TODO           -->
+           
+            <li class="nav-item">
+        <div class="dropdown">
+                <button class="dropbtn">Settings</button>
+                <div class="dropdown-content">
+                    <a href="settingsadmin.php">Edit account</a>
+                    <a href="usersadmin.php">User management</a>
+                    <a href="contentadmin.php">Content Management</a>
+                    <a href="ordersadmin.php">Orders management</a>
+                    <a href="logoutadmin.php">Log out</a>
+                </div>
+        </div>
+</li>
         </ul>
     </div>
 

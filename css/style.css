@@ -4,6 +4,9 @@ body {
   color: hsl(210, 8%, 41%);
   /* margin: 0px; */
 }
+.container {
+  width: fit-content;
+}
 
 .top-bar { 
   background: #eaa639; 
@@ -17,38 +20,30 @@ body {
 }
 
 .navbar-brand img {
-  /* float: left; */
+  float: left; 
   height: 50px;
 }
-
+.navbar-nav {
+  float: left;
+}
 .navbar {
-  /* float: left; */
+  float: left; 
   font-size: 15px;
   font-weight: 600; 
   letter-spacing: 1.4;
-  /* white-space: nowrap; */
+  white-space: nowrap;
   box-shadow: 5px 5px 5px rgba(0,0,0,.1);
   width: 100%;
-  border-top: 1px solid #2b2e30;
-  overflow: hidden;
+  /* border-top: 1px solid #2b2e30; */
+  /* overflow: hidden; */
   /* min-width: 650px; */
 }
 
 .nav-item {
   box-sizing: border-box;
+  float: left;
   padding: 0 100px;
-  display: inline-block;
-}
-
-.navbar-collapse {
-  padding: 0;
-  position: fixed;
-  width:100%;
-}
-
-.navbar-collapse li {
-  display:inline-block;
-  /* float:left; */
+  /* display: inline-block; */
 }
 
 .nav-link {color: #5b5555!important}
@@ -60,13 +55,13 @@ body {
 /*============= MEDIA QUERIES =============*/
 
 /* Devices under 1199px (xl) */
-@media (max-width: 1199.98px) {
+/* @media (max-width: 1199.98px) {
 
-}
+} */
 /* Devices under 768px (md) */
-@media (max-width: 767.98px) {
+/* @media (max-width: 767.98px) {
 
-}
+} */
 
 
 /*============ BOOTSTRAP BREAK POINTS:
@@ -136,8 +131,8 @@ Extra (xl) large devices (large desktops, 1200px and up)
 
 .dropbtn {
   /* box-sizing: border-box; */
-  width: fit-content;
-  padding: 0 90px;
+  min-width: 200px;
+  /* padding: 0 90px; */
   display: inline-block;
   background-color: #e5bc7a;
   font-size: 16px;
@@ -145,24 +140,27 @@ Extra (xl) large devices (large desktops, 1200px and up)
   /* margin-right: 10px; */
 }
 
-.dropdown {
-  position: relative;
+#dropdown {
+  /* position: fixed; */
   display: inline-block;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  min-width: 150px;
+  min-width: 200px;
   z-index: 1;
   background-color: #ffdfab;
+  border: 10px #5b5555;
+  text-align: right;
 }
 
 .dropdown-content a {
   color: black;
-  padding: 0px 90px;
+  /* padding: 0px 90px; */
   text-decoration: none;
   display: block;
+  border: #5b5555;
 }
 
 .dropdown-content a:hover {background-color: white;}

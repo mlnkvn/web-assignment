@@ -25,9 +25,9 @@
 <nav class="navbar bg-light navbar-light navbar-expand-lg">
     <div class="container">
         <a href="indexuser.php" class="navbar-brand"><img src="../img/logo.png" alt="Oops!"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
@@ -35,6 +35,7 @@
             <li class="nav-item"><a href="categoryuser.php" class="nav-link">Categories</a></li>
             <li class="nav-item"><a href="shopping_cartuser.php" class="nav-link">Shopping Cart</a></li>
             <!--            TODO                 -->
+            <li class="nav-item" >
             <div class="dropdown">
                 <button class="dropbtn">My Account</button>
                     <div class="dropdown-content">
@@ -44,6 +45,7 @@
                         <a href="logoutuser.php">Log out</a>
                     </div>
             </div>
+</li>
         </ul>
     </div>
 </nav>
