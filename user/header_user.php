@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
 <div class="top-bar">
     <div class="container">
         <div class="col-12 text-right">
@@ -30,10 +31,19 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="indexuser.php" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="indexuser.php" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="categoryuser.php" class="nav-link">Categories</a></li>
             <li class="nav-item"><a href="shopping_cartuser.php" class="nav-link">Shopping Cart</a></li>
             <!--            TODO                 -->
+            <div class="dropdown">
+                <button class="dropbtn">My Account</button>
+                    <div class="dropdown-content">
+                        <a href="edituser.php">Edit profile</a>
+                        <a href="addressuser.php">Address Management</a>
+                        <a href="ordersuser.php">My orders</a>
+                        <a href="logoutuser.php">Log out</a>
+                    </div>
+            </div>
         </ul>
     </div>
 </nav>

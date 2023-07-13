@@ -54,53 +54,7 @@ body {
 .nav-link {color: #5b5555!important}
 .nav-link.active, .nav-link:hover {color: #4981b3!important}
 
-/*============= CAROUSEL =============*/
 
-#carousel {
-  box-shadow: 15px 15px 15px rgba(0,0,0,.1);
-}
-.carousel-inner {
-  max-height: 600px;
-}
-
-/*-- Carousel Content --*/
-
-.carousel-caption {
-  position: absolute; 
-  top:55%; 
-  transform: translateY(-50%); 
-  text-transform: uppercase;
-}
-
-.bg-custom {
-  background-color: rgba(0,0,0,.5);
-  border-radius: 16px;
-}
-
-.carousel-caption h1{ 
-  font-size: 60;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1); 
-}
-
-.border-primary {
-  border-top: 1pxsolid #67a7d4!important;
-}
-
-.btn-lg {
-  border-radius: 0%;
-  font-size: smaller;
-}
-  
-/*===== FIXED BACKGROUND IMG =====*/
-.fixed{
-  background-image: url('/Users/nadezdamelnikova/Downloads/CS364.CSS.And.Bootstrap.StarterPack/img/matrix.jpg');
-  position: fixed;
-}
-
-.fixed-background {
-  overflow: hidden; /*-- Correction for iOS --*/ padding: 160px 0px;
-  }
-  
 /*============= FOOTER & SOCKET=============*/
 
 /*============= MEDIA QUERIES =============*/
@@ -179,3 +133,37 @@ Extra (xl) large devices (large desktops, 1200px and up)
 #last-line {
   align-self: center;
 }
+
+.dropbtn {
+  /* box-sizing: border-box; */
+  width: fit-content;
+  padding: 0 90px;
+  display: inline-block;
+  background-color: #e5bc7a;
+  font-size: 16px;
+  border: none;
+  /* margin-right: 10px; */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 150px;
+  z-index: 1;
+  background-color: #ffdfab;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 0px 90px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: white;}
+.dropdown:hover .dropdown-content {display: block;}
