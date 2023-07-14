@@ -4,5 +4,6 @@
 
 <h2>Category Page content here</h2>
 
-</body>
-</html>
+<?php
+    include_once 'footer.php'
+?>

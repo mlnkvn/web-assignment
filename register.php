@@ -2,7 +2,7 @@
     include_once 'header.php'
 ?>
 
-<div align="center" id="register-block">
+<div style="padding-top: 8%; padding-bottom: 3%" align="center" id="register-block">
 
     <h3>REGISTER</h3>
     <form id="register-form" method="post" action="actions/registerscript.php" >
@@ -33,7 +33,7 @@
     </form>
 </div>
 
-<p><a href="login.php">I already have an account</a></p>
+<p style="text-align: center"><a href="login.php">I already have an account</a></p>
 
 
 

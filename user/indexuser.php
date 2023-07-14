@@ -6,7 +6,8 @@ if ($_SESSION["loggedIn"] !== true) {
     exit;
 }
 
-include_once 'header_user.php'
+include_once 'header_user.php';
+include_once '../homepage_body.php';
 ?>
 
 <div>
@@ -14,5 +15,6 @@ include_once 'header_user.php'
         <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b> <br>Welcome to our site.</h2>
 </div>
 
-</body>
-</html>
+<?php
+include_once 'footer.php';
+?>

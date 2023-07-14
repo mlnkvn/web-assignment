@@ -2,7 +2,7 @@
     include_once 'header.php'
 ?>
 
-<div align="center" id="login-block">
+<div style="padding-top: 8%; padding-bottom: 3%" align="center" id="login-block">
     <h3>LOGIN</h3>
         <form id="login-form" method="post" action="actions/loginscript.php" >
             <table border="0.5">
@@ -22,7 +22,7 @@
         </form>
     </div>
 
-<p><a href="register.php">Don't have an account? Create one!</a></p>
+<p style="text-align: center"><a href="register.php">Don't have an account? Create one!</a></p>
 
 <?php
     if (isset($_GET["error"])) {
