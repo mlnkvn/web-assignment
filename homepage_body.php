@@ -1,6 +1,6 @@
 <div class="banner">
     <div id="banner-text">
-        SOCKSESS
+        SOCKCESS
     </div>
 </div>
 
