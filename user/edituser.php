@@ -6,12 +6,7 @@ if ($_SESSION["loggedIn"] !== true) {
     exit;
 }
 
-include_once 'header_user.php'
-?>
-
-<div>
-    <h2>Here settings are</h2>
-</div>
-
-</body>
-</html>
+include_once 'header_user.php';
+include_once '../editingpage.php';
+include_once '../footer.php'
+    ?>

@@ -11,8 +11,13 @@ include_once '../homepage_body.php';
 ?>
 
 <div>
-    <h2>Hi user, <br>userid <b><?php echo htmlspecialchars($_SESSION["userid"]); ?> </b> <br> username
-        <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b> <br>Welcome to our site.</h2>
+    <h2>Hi user, <br>userid <b>
+            <?php echo htmlspecialchars($_SESSION["userid"]); ?>
+        </b> <br> username
+        <b>
+            <?php echo htmlspecialchars($_SESSION["username"]); ?>
+        </b> <br>Welcome to our site.
+    </h2>
 </div>
 
 <?php

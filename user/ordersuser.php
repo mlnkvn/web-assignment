@@ -7,11 +7,12 @@ if ($_SESSION["loggedIn"] !== true) {
 }
 
 include_once 'header_user.php'
-?>
+    ?>
 
 <div>
     <h2>Here orders are</h2>
 </div>
 
 </body>
+
 </html>

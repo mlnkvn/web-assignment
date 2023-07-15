@@ -1,8 +1,11 @@
 <?php
-include_once 'header_admin.php'
-?>
+session_start();
 
-<h2>Settings for admin here</h2>
-
-</body>
-</html>
+if ($_SESSION["loggedIn"] !== true) {
+    header("location: ../login.php");
+    exit;
+}
+include_once 'header_admin.php';
+include_once '../editingpage.php';
+include_once '../footer.php'
+    ?>

@@ -9,8 +9,9 @@ if ($_SESSION["level"] !== 1) {
     header("location: login.php");
     exit;
 }
-include_once 'header_admin.php'
-?>
+include_once 'header_admin.php';
+include_once '../homepage_body.php';
+    ?>
 
 <div>
     <h2>Welcome admin, <br>userid <b><?php echo htmlspecialchars($_SESSION["userid"]); ?> </b> <br> username
@@ -20,4 +21,5 @@ include_once 'header_admin.php'
 </div>
 
 </body>
+
 </html>
