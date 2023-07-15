@@ -14,15 +14,6 @@ if (isset($_POST["edit-submit"])) {
     require_once 'db.php';
     require_once 'functionality.php';
 
-
-    if ((empty($oldPwd) or empty($newPwd) or empty($newPwdRepeat)) and !(empty($oldPwd) and empty($newPwd) and empty($newPwdRepeat))) {
-        if ($usersLevel === 0) {
-            header("location: ../user/edituser.php?error=emptyinput");
-        } else {
-            header("location: ../admin/settingsadmin.php?error=emptyinput");
-        }
-        exit();
-    }
     if (invalidUsername($username)) {
         if ($usersLevel === 0) {
             header("location: ../user/edituser.php?error=invalidusername");
@@ -53,7 +44,7 @@ if (isset($_POST["edit-submit"])) {
             } else {
                 header("location: ../admin/settingsadmin.php?error=wrongpassword");
             }
-            // exit();
+            exit();
         }
         if ($newPwd !== $newPwdRepeat) {
             if ($usersLevel === 0) {

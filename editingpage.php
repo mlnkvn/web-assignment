@@ -1,5 +1,30 @@
 <div class="user-settings" align="center" style="padding-top: 8%;">
     <h2 class="h3 mb-4 page-title">Settings</h2>
+    <p style="display: inline;" id="error-msg"><?php 
+        if (isset($_GET["error"])) {
+            echo '<script> showError(); </script>';
+            if ($_GET["error"] == "invalidusername") {
+                echo "Provided username is incorrect. Correct username should contain latin letters and digits.";
+            } 
+            else if ($_GET["error"] == "invalidemail") {
+                echo "Provided email is incorret.";
+            }
+            else if ($_GET["error"] == "wrongpassword") {
+                echo "Provided password doesn't match with actual one..";
+            }
+            else if ($_GET["error"] == "passwordmismatch") {
+                echo "New password and repeated new password missmatch. Check your new password and try again.";
+            }
+            else if ($_GET["error"] == "stmtfailed") {
+                echo "Something went wrong. Try again later.";
+            } 
+            else if ($_GET["error"] == "none") {
+                echo "Your profile was sockcessfully edited!";
+            } 
+        } else {
+            echo '<script> hideError(); </script>';
+        }
+    ?></p>
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8 mx-auto">
             <div class="my-4">

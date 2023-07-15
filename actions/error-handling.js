@@ -36,3 +36,11 @@ function checkForm() {
     return true;
 }
 
+function showError() {
+    document.getElementById("error-msg").style.display = "inline";
+}
+
+function hideError() {
+    document.getElementById("error-msg").style.display = "none";
+}
+
