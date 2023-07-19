@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WebAssignment</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -32,19 +32,19 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a href="indexadmin.php" class="nav-link active">Home</a></li>
             <li class="nav-item"><a href="categoryadmin.php" class="nav-link">Category Page</a></li>
-           
+
             <li class="nav-item">
-        <div class="dropdown">
-                <button class="dropbtn">Settings</button>
-                <div class="dropdown-content">
-                    <a href="settingsadmin.php">Edit account</a>
-                    <a href="usersadmin.php">User management</a>
-                    <a href="contentadmin.php">Content Management</a>
-                    <a href="ordersadmin.php">Orders management</a>
-                    <a href="logoutadmin.php">Log out</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Settings</button>
+                    <div class="dropdown-content">
+                        <a href="settingsadmin.php">Edit account</a>
+                        <a href="usersadmin.php">User management</a>
+                        <a href="contentadmin.php">Content Management</a>
+                        <a href="ordersadmin.php">Orders management</a>
+                        <a href="logoutadmin.php">Log out</a>
+                    </div>
                 </div>
-        </div>
-</li>
+            </li>
         </ul>
     </div>
 
