@@ -2,11 +2,11 @@
   <div class="overlay-items">
     <div class = "items"></div>
     <div class = "items head-items">
-      <p>Flower Embroidery Hoop Art</p>
+      <p class="item-name"></p>
       <hr>
     </div>
     <div class = "items price">
-      <p class="new">$345</p>
+      <p class="new" id="item-n-price"></p>
     </div>
     <div class="items cart">
       <i class="fa fa-shopping-cart"></i>
