@@ -10,7 +10,7 @@ if ($_SESSION["level"] !== 1) {
     exit;
 }
 include_once 'header_admin.php';
-include_once '../homepage_body.php';
+include_once 'homepage_body_admin.php';
     ?>
 
 <div>
