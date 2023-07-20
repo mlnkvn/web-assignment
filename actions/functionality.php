@@ -127,6 +127,7 @@ function loginUser($con, $username, $password)
         $_SESSION["level"] = $getUser["usersLevel"];
 
         if ($_SESSION["level"] == 0) {
+            $_SESSION["orderStatus"] = false;
             header("location: ../user/indexuser.php");
         } else {
             header("location: ../admin/indexadmin.php");

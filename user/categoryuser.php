@@ -36,6 +36,7 @@ function getItemsWith($cat, $subcat)
     return $arr;
 }
 
+
 ?>
     <!--Side navigation bar-->
     <div style="width: 100%; margin-top: 7%">
@@ -47,8 +48,8 @@ function getItemsWith($cat, $subcat)
             <ul id="category-tabs">
                 <li><a href="categoryuser.php?cat=socks_all" class="main-category">Socks</a>
                     <ul class="sub-category-tabs">
-                        <li><a href="categoryuser.php?cat=socks_all" onclick="updCatsAll()">All socks</a></li>
-                        <li><a href="categoryuser.php?cat=socks_basic" onclick="updCatsBasic()">Basic</a></li>
+                        <li><a href="categoryuser.php?cat=socks_all">All socks</a></li>
+                        <li><a href="categoryuser.php?cat=socks_basic">Basic</a></li>
                         <li><a href="categoryuser.php?cat=socks_pattern">With patterns</a></li>
                         <li><a href="categoryuser.php?cat=socks_memes">With memes</a></li>
                     </ul>
@@ -125,6 +126,8 @@ function getItemsWith($cat, $subcat)
                         imgElement.querySelector('.item-name').innerHTML = items[ind][3];
                         imgElement.querySelector('.price').innerHTML = items[ind][4] + '€';
                         imgElement.style.backgroundSize = "contain";
+                        imgElement.querySelector("#item-dest").href = "#shadowed-back";
+                        imgElement.querySelector("#item-dest").onclick = displayItem(items[ind]);
                     }
                     row.appendChild(cell);
                 }
@@ -132,8 +135,73 @@ function getItemsWith($cat, $subcat)
             }
         }
 
-
     </script>
 
+    <script>
+        function addToCart() {
+        }
+
+        function displayItem(itemRow) {
+            document.getElementById("item-img-img").src = "../img/" + itemRow[6];
+            return "#shadowed-back";
+        }
+    </script>
+
+    <div id="shadowed-back">
+        <script>
+            var displayed_items = document.getElementsByClassName("item-container-class");
+            console.log(displayed_items);
+            for (let i = 0; i < displayed_items.length; i++) {
+                displayed_items[i].disable();
+            }
+        </script>
+        <div class="pop-up-container">
+            <a href="" class="close-button" onclick="closeElemPopUP()">x</a>
+            <div class="item-image">
+                <img src="../img/socks-kitty.png" id="item-img-img" style="width: 80%; height: auto;"
+                     alt="There is no picture for this product"/>
+            </div>
+            <div class="slideshow-buttons">
+                <div class="one"></div>
+                <div class="two"></div>
+                <div class="three"></div>
+                <div class="four"></div>
+            </div>
+            <p class="pick">choose size</p>
+            <div class="sizes">
+                <div class="size" onclick="pickSize(0)">32-35</div>
+                <div class="size" onclick="pickSize(1)">36-49</div>
+                <div class="size" onclick="pickSize(2)">40-45</div>
+                <div class="size" onclick="pickSize(3)">46+</div>
+                <script>
+                    function pickSize(ind) {
+                        var sizeButtons = document.getElementsByClassName("size");
+                        for (let i = 0; i < sizeButtons.length; i++) {
+                            if (i === ind) {
+                                sizeButtons[i].classList.add('focus');
+                                continue;
+                            }
+                            sizeButtons[i].classList.remove('focus');
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <div class="product">
+                <p>Women's Running Shoe</p>
+                <h1>Nike Epic React Flyknit</h1>
+                <h2>$150</h2>
+                <p class="desc">The Nike Epic React Flyknit foam cushioning is responsive yet light-weight, durable
+                    yet soft. This creates a sensation that not only enhances the feeling of moving forward, but
+                    makes running feel fun, too.</p>
+                <div class="buttons">
+                    <button class="add" href="" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!--        </div>-->
+    </div>
 
 <?php include_once '../footer.php' ?>
