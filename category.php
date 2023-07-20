@@ -1,43 +1,49 @@
 <?php
 include_once 'header.php'
-    ?>
+?>
 <?php
-    function getItemsWith($cat, $subcat)
-    {
+function getItemsWith($cat, $subcat)
+{
     require_once 'actions/db.php';
-    $sql = "SELECT * FROM `items` WHERE 1;";
-    if ($subcat === "all") {
-    $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
+    if ($cat === "all") {
+        $sql = "SELECT * FROM `items` WHERE 1;";
+    } else if ($subcat === "all") {
+        $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
     } else {
-    $sql = "SELECT * FROM `items` WHERE itemCategory=? AND itemSubCategory=?;";
+        $sql = "SELECT * FROM `items` WHERE itemCategory=? AND itemSubCategory=?;";
     }
     $stmt = mysqli_stmt_init($con);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-    exit();
+        exit();
     }
-    if ($subcat === "all") {
-    mysqli_stmt_bind_param($stmt, "s", $cat);
+    if ($cat === "all") {
+        //
+    } else if ($subcat === "all") {
+        mysqli_stmt_bind_param($stmt, "s", $cat);
     } else {
-    mysqli_stmt_bind_param($stmt, "ss", $cat, $subcat);
+        mysqli_stmt_bind_param($stmt, "ss", $cat, $subcat);
     }
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $arr = array();
     while ($row = mysqli_fetch_assoc($result)) {
-    $it = array();
-    foreach ($row as $key => $val) {
-    $it[] = $val;
-    }
-    $arr[] = $it;
+        $it = array();
+        foreach ($row as $key => $val) {
+            $it[] = $val;
+        }
+        $arr[] = $it;
     }
     return $arr;
-    }
+}
 
-    ?>
+?>
     <!--Side navigation bar-->
     <div style="width: 100%; margin-top: 7%">
         <div class="side-nav-categories" style="width: 20%; float: left;">
             <div class="title"><strong>Category</strong></div>
+            <ul id="category-tabs">
+                <li><a href="category.php?cat=all_all">All products</a></li>
+            </ul>
             <ul id="category-tabs">
                 <li><a href="category.php?cat=socks_all" class="main-category">Socks</a>
                     <ul class="sub-category-tabs">
@@ -93,7 +99,7 @@ include_once 'header.php'
             $category = $cats[0];
             $subcategory = $cats[1];
         } else {
-            $category = "socks";
+            $category = "all";
             $subcategory = "all";
         }
         $itemsPHP = getItemsWith($category, $subcategory);
@@ -132,4 +138,4 @@ include_once 'header.php'
 
 <?php
 include_once 'footer.php'
-    ?>
+?>

@@ -6,8 +6,9 @@ include_once 'header_admin.php'
 function getItemsWith($cat, $subcat)
 {
     require_once '../actions/db.php';
-    $sql = "SELECT * FROM `items` WHERE 1;";
-    if ($subcat === "all") {
+    if ($cat === "all") {
+        $sql = "SELECT * FROM `items` WHERE 1;";
+    } else if ($subcat === "all") {
         $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
     } else {
         $sql = "SELECT * FROM `items` WHERE itemCategory=? AND itemSubCategory=?;";
@@ -16,7 +17,9 @@ function getItemsWith($cat, $subcat)
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
     }
-    if ($subcat === "all") {
+    if ($cat === "all") {
+        //
+    } else if ($subcat === "all") {
         mysqli_stmt_bind_param($stmt, "s", $cat);
     } else {
         mysqli_stmt_bind_param($stmt, "ss", $cat, $subcat);
@@ -39,6 +42,9 @@ function getItemsWith($cat, $subcat)
 <div style="width: 100%; margin-top: 7%">
     <div class="side-nav-categories" style="width: 20%; float: left;">
         <div class="title"><strong>Category</strong></div>
+        <ul id="category-tabs">
+            <li><a href="categoryadmin.php?cat=all_all">All products</a></li>
+        </ul>
         <ul id="category-tabs">
             <li><a href="categoryadmin.php?cat=socks_all" class="main-category">Socks</a>
                 <ul class="sub-category-tabs">
@@ -94,7 +100,7 @@ function getItemsWith($cat, $subcat)
         $category = $cats[0];
         $subcategory = $cats[1];
     } else {
-        $category = "socks";
+        $category = "all";
         $subcategory = "all";
     }
     $itemsPHP = getItemsWith($category, $subcategory);
