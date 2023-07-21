@@ -94,15 +94,6 @@ require_once '../actions/functionality.php';
                         imgElement.querySelector('.price').innerHTML = items[ind][4] + '€';
                         imgElement.style.backgroundSize = "contain";
                         imgElement.querySelector("#item-dest").href = location.href + "_" + items[ind][0].toString() + "#shadowed-back";
-                        // imgElement.querySelector(".item-dest-cl").onclick = function () {
-                        //     // location.href += ";itemid=" + items[ind][0].toString() + "#shadowed-back";
-                        //     // document.getElementById("item-img-img").src = "../img/" + items[ind][6];
-                        //     document.getElementById("item-category").innerHTML = items[ind][1].toUpperCase();
-                        //     document.getElementById("item-prod-name").innerHTML = items[ind][3];
-                        //     document.getElementById("item-prod-price").innerHTML = items[ind][4] + '€';
-                        //     document.getElementById("item-prod-desc").innerHTML = items[ind][7];
-                        //
-                        // };
                     }
                     row.appendChild(cell);
                 }

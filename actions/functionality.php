@@ -125,9 +125,8 @@ function loginUser($con, $username, $password)
         $_SESSION["useremail"] = $getUser["usersEmail"];
         $_SESSION["userAddress"] = $getUser["deliveryAddress"];
         $_SESSION["level"] = $getUser["usersLevel"];
-
+        $_SESSION["orderingStatus"] = false;
         if ($_SESSION["level"] == 0) {
-            $_SESSION["orderStatus"] = false;
             header("location: ../user/indexuser.php");
         } else {
             header("location: ../admin/indexadmin.php");
@@ -136,7 +135,8 @@ function loginUser($con, $username, $password)
     }
 }
 
-function updateUserWithPwd($con, $userId, $userFullName, $username, $userEmail, $address, $newPwd, $userLevel) {
+function updateUserWithPwd($con, $userId, $userFullName, $username, $userEmail, $address, $newPwd, $userLevel)
+{
     $sql = "UPDATE users SET usersName=?,usersEmail=?,usersUid=?, usersPwd=?, deliveryAddress=? WHERE usersId=?;";
     $stmt = mysqli_stmt_init($con);
     session_start();
@@ -164,7 +164,8 @@ function updateUserWithPwd($con, $userId, $userFullName, $username, $userEmail, 
     exit();
 }
 
-function updateUserWithoutPwd($con, $userId, $userFullName, $username, $userEmail, $address, $userLevel) {
+function updateUserWithoutPwd($con, $userId, $userFullName, $username, $userEmail, $address, $userLevel)
+{
     $sql = "UPDATE users SET usersName=?,usersEmail=?,usersUid=?, deliveryAddress=? WHERE usersId=?;";
     $stmt = mysqli_stmt_init($con);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -240,5 +241,109 @@ function getItemWithId($con, $id)
         $arr[] = $val;
     }
     return $arr;
+}
+
+// create empty order for user with usId
+function createOrder($con, $usId)
+{
+    $sql = "INSERT INTO `orders` (userId, orderAmount, orderTotal, orderStatus) VALUES (?, 0, 0, 0);";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $usId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    $_SESSION["orderingStatus"] = true;
+    return true;
+}
+
+//get active order for user with usId
+function getActiveOrder($con, $usId) {
+    $sql = "SELECT * FROM `orders` WHERE userId = ? AND orderStatus = 0;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $usId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if ($row = mysqli_fetch_assoc($result)) {
+        mysqli_stmt_close($stmt);
+        return $row;
+    } else {
+        mysqli_stmt_close($stmt);
+        return false;
+    }
+}
+
+// row with ordered item if is added in this order with ordId, false if isn't order
+function getExistingItem($con, $ordId, $idIt, $pickedSize)
+{
+    $sql = "SELECT * FROM `orderedItems` WHERE itemId = ? AND orderId = ? AND itemSize = ?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "sss", $idIt, $ordId, $pickedSize);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    if ($row = mysqli_fetch_assoc($result)) {
+        mysqli_stmt_close($stmt);
+        return $row;
+    } else {
+        mysqli_stmt_close($stmt);
+        return false;
+    }
+}
+
+// adds item with itId to order with ordId
+function addToOrder($con, $item, $pickedSize, $curOrder)
+{
+//    $usId = $_SESSION["userId"];
+    $itId = $item[0];
+
+//    $curOrder = getActiveOrder($con, $usId);
+
+
+    $_SESSION["orderId"] = $curOrder['orderId'];
+    $existItem = getExistingItem($con, $curOrder['orderId'], $itId, $pickedSize);
+    if ($existItem === false) {
+        $sql = "INSERT INTO orderedItems (itemId, itemsAmount, orderId, itemSize) VALUES (?, 1, ?, ?);";
+        $stmt = mysqli_stmt_init($con);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "sss", $itId, $_SESSION["orderId"], $pickedSize);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    } else {
+        $id = $existItem['lineId'];
+        $amount = $existItem['itemsAmount'];
+        $sql = "UPDATE orderedItems SET itemsAmount = ? WHERE lineId = ?;";
+        $stmt = mysqli_stmt_init($con);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "ss", $amount, $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+    return true;
+
+}
+function addToCart($con, $it, $pickedSz)
+{
+    session_start();
+    $curOrd = getActiveOrder($con, $_SESSION["userId"]);
+    if ($curOrd === false) {
+        createOrder($con, $_SESSION["userId"]);
+    } else {
+        $_SESSION["orderingStatus"] = true;
+    }
+    addToOrder($con, $it, $pickedSz, $curOrd);
+    return true;
 }
 ?>

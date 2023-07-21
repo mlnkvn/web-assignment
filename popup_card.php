@@ -7,6 +7,8 @@
         $id = explode("_", $cats[2])[0];
     }
     $item = getItemWithId($con, $id);
+
+
     ?>
     <script>
         var displayed_items = document.getElementsByClassName("item-container-class");
@@ -15,21 +17,26 @@
         }
     </script>
 
-    <div class="pop-up-container" >
+    <div class="pop-up-container">
         <script type="text/javascript">
             const item = <?php echo json_encode($item); ?>;
+
             function setImgSrc() {
-                console.log(item);
-                return "../img/" + item[6];
+                if (location.href.search('#') !== -1) {
+                    return "../img/" + item[6];
+                }
+                return "";
             }
+
             function getPrevHref() {
                 const prevUrl = document.location.href.split('_');
                 return prevUrl[0] + '_' + prevUrl[1];
             }
         </script>
-        <a href="javascript:document.location.href=getPrevHref();" class="close-button" >x</a>
+        <a href="javascript:document.location.href=getPrevHref();" class="close-button">x</a>
         <div class="item-image">
-            <img src="../img/card50.png" onload="this.onload=null; this.src=setImgSrc()" id="item-img-img" style="width: 80%; height: auto;"
+            <img src="../img/card50.png" onload="this.onload=null; this.src=setImgSrc()" id="item-img-img"
+                 style="width: 80%; height: auto;"
                  alt="There is no picture for this product"/>
         </div>
         <div class="slideshow-buttons">
@@ -38,22 +45,42 @@
             <div class="three"></div>
             <div class="four"></div>
         </div>
-        <form method="post" action="javascript:addToCart()">
+        <form method="post" id="buyingForm" action="#" onsubmit="setFormUrl()">
+            <script>
+                function setFormUrl() {
+                    const url = "../actions/addingToCart.php?" + location.href.split('?')[1].split('#')[0];
+                    document.getElementById('buyingForm').setAttribute('action', url);
+                }
+            </script>
             <p class="pick">choose size</p>
             <div class="sizes">
-                <input type="button" class="size" onclick="pickSize(0)" value="32-35">
-                <input type="button"  class="size" onclick="pickSize(1); <?php $chosenSize = 1 ?>" value="36-49">
-                <input type="button"  class="size" onclick="pickSize(2); <?php $chosenSize = 2 ?>" value="40-45">
-                <input type="button"  class="size" onclick="pickSize(3); <?php $chosenSize = 3 ?>" value="46+">
+                <?php $chosenSize = -1 ?>
+                <button type="button" name="size1" class="size" onclick="pickSize(0)"
+                        >32-35</button>
+                <button type="button" name="size2" class="size" onclick="pickSize(1)"
+                        >36-39</button>
+                <button type="button" name="size3" class="size" onclick="pickSize(2)"
+                        >40-45</button>
+                <button type="button" name="size4" class="size" onclick="pickSize(3)"
+                        >46+</button>
                 <script>
                     function pickSize(ind) {
-                        var sizeButtons = document.getElementsByClassName("size");
+                        const sizeButtons = document.getElementsByClassName("size");
                         for (let i = 0; i < sizeButtons.length; i++) {
                             if (i === ind) {
                                 sizeButtons[i].classList.add('focus');
                                 continue;
                             }
                             sizeButtons[i].classList.remove('focus');
+                        }
+                        if (ind === 0) {
+                            <?php $_POST[] = "size1"; ?>
+                        } else if (ind === 1) {
+                            <?php $_POST[] = "size2"; ?>
+                        } else if (ind === 2) {
+                            <?php $_POST[] = "size3"; ?>
+                        } else {
+                            <?php $_POST[] = "size4"; ?>
                         }
                     }
                 </script>
@@ -66,23 +93,18 @@
                 <h2 id="item-prod-price">$150</h2>
                 <p class="desc" id="item-prod-desc"></p>
                 <div class="buttons">
-                    <button class="add" type="submit">Add to Cart</button>
+                    <button class="add" type="submit" name="submit">Add to Cart</button>
                 </div>
             </div>
             <script>
-                document.getElementById("item-category").innerHTML = item[1].toUpperCase();
-                document.getElementById("item-prod-name").innerHTML = item[3];
-                document.getElementById("item-prod-price").innerHTML = item[4] + '€';
-                document.getElementById("item-prod-desc").innerHTML = item[7];
+                if (location.href.search('#') !== -1) {
+                    document.getElementById("item-category").innerHTML = item[1].toUpperCase();
+                    document.getElementById("item-prod-name").innerHTML = item[3];
+                    document.getElementById("item-prod-price").innerHTML = item[4] + '€';
+                    document.getElementById("item-prod-desc").innerHTML = item[7];
+                }
             </script>
         </form>
     </div>
 
 </div>
-
-<script>
-
-    function addToCart() {
-        console.log('<?php echo json_encode($_GET); ?>');
-    }
-</script>
