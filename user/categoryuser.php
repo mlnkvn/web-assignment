@@ -2,41 +2,8 @@
 include_once 'header_user.php'
 ?>
 <?php
-function getItemsWith($cat, $subcat)
-{
-    require_once '../actions/db.php';
-    if ($cat === "all") {
-        $sql = "SELECT * FROM `items` WHERE 1;";
-    } else if ($subcat === "all") {
-        $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
-    } else {
-        $sql = "SELECT * FROM `items` WHERE itemCategory=? AND itemSubCategory=?;";
-    }
-    $stmt = mysqli_stmt_init($con);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        exit();
-    }
-    if ($cat === "all") {
-        //
-    } else if ($subcat === "all") {
-        mysqli_stmt_bind_param($stmt, "s", $cat);
-    } else {
-        mysqli_stmt_bind_param($stmt, "ss", $cat, $subcat);
-    }
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $arr = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $it = array();
-        foreach ($row as $key => $val) {
-            $it[] = $val;
-        }
-        $arr[] = $it;
-    }
-    return $arr;
-}
-
-
+require_once '../actions/db.php';
+require_once '../actions/functionality.php';
 ?>
     <!--Side navigation bar-->
     <div style="width: 100%; margin-top: 7%">
@@ -103,7 +70,7 @@ function getItemsWith($cat, $subcat)
             $category = "all";
             $subcategory = "all";
         }
-        $itemsPHP = getItemsWith($category, $subcategory);
+        $itemsPHP = getItemsWith($con, $category, $subcategory);
         ?>
 
         function buildTable(tableElementHTML, tableId) {
@@ -113,7 +80,7 @@ function getItemsWith($cat, $subcat)
             for (let j = 0; j < 4; j++) {
                 const row = document.createElement("tr");
                 for (let i = 0; i < 3; i++) {
-                    var ind = 3 * j + i;
+                    const ind = 3 * j + i;
                     const cell = document.createElement("td");
                     if (ind >= items.length) {
                         row.appendChild(cell);
@@ -126,8 +93,16 @@ function getItemsWith($cat, $subcat)
                         imgElement.querySelector('.item-name').innerHTML = items[ind][3];
                         imgElement.querySelector('.price').innerHTML = items[ind][4] + '€';
                         imgElement.style.backgroundSize = "contain";
-                        imgElement.querySelector("#item-dest").href = "#shadowed-back";
-                        imgElement.querySelector("#item-dest").onclick = displayItem(items[ind]);
+                        imgElement.querySelector("#item-dest").href = location.href + "_" + items[ind][0].toString() + "#shadowed-back";
+                        // imgElement.querySelector(".item-dest-cl").onclick = function () {
+                        //     // location.href += ";itemid=" + items[ind][0].toString() + "#shadowed-back";
+                        //     // document.getElementById("item-img-img").src = "../img/" + items[ind][6];
+                        //     document.getElementById("item-category").innerHTML = items[ind][1].toUpperCase();
+                        //     document.getElementById("item-prod-name").innerHTML = items[ind][3];
+                        //     document.getElementById("item-prod-price").innerHTML = items[ind][4] + '€';
+                        //     document.getElementById("item-prod-desc").innerHTML = items[ind][7];
+                        //
+                        // };
                     }
                     row.appendChild(cell);
                 }
@@ -137,71 +112,8 @@ function getItemsWith($cat, $subcat)
 
     </script>
 
-    <script>
-        function addToCart() {
-        }
 
-        function displayItem(itemRow) {
-            document.getElementById("item-img-img").src = "../img/" + itemRow[6];
-            return "#shadowed-back";
-        }
-    </script>
-
-    <div id="shadowed-back">
-        <script>
-            var displayed_items = document.getElementsByClassName("item-container-class");
-            console.log(displayed_items);
-            for (let i = 0; i < displayed_items.length; i++) {
-                displayed_items[i].disable();
-            }
-        </script>
-        <div class="pop-up-container">
-            <a href="" class="close-button" onclick="closeElemPopUP()">x</a>
-            <div class="item-image">
-                <img src="../img/socks-kitty.png" id="item-img-img" style="width: 80%; height: auto;"
-                     alt="There is no picture for this product"/>
-            </div>
-            <div class="slideshow-buttons">
-                <div class="one"></div>
-                <div class="two"></div>
-                <div class="three"></div>
-                <div class="four"></div>
-            </div>
-            <p class="pick">choose size</p>
-            <div class="sizes">
-                <div class="size" onclick="pickSize(0)">32-35</div>
-                <div class="size" onclick="pickSize(1)">36-49</div>
-                <div class="size" onclick="pickSize(2)">40-45</div>
-                <div class="size" onclick="pickSize(3)">46+</div>
-                <script>
-                    function pickSize(ind) {
-                        var sizeButtons = document.getElementsByClassName("size");
-                        for (let i = 0; i < sizeButtons.length; i++) {
-                            if (i === ind) {
-                                sizeButtons[i].classList.add('focus');
-                                continue;
-                            }
-                            sizeButtons[i].classList.remove('focus');
-                        }
-                    }
-                </script>
-            </div>
-
-
-            <div class="product">
-                <p>Women's Running Shoe</p>
-                <h1>Nike Epic React Flyknit</h1>
-                <h2>$150</h2>
-                <p class="desc">The Nike Epic React Flyknit foam cushioning is responsive yet light-weight, durable
-                    yet soft. This creates a sensation that not only enhances the feeling of moving forward, but
-                    makes running feel fun, too.</p>
-                <div class="buttons">
-                    <button class="add" href="" onclick="addToCart()">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-
-        <!--        </div>-->
-    </div>
-
-<?php include_once '../footer.php' ?>
+<?php
+include_once '../popup_card.php';
+include_once '../footer.php';
+?>

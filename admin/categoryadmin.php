@@ -98,7 +98,7 @@ function getItemsWith($cat, $subcat)
     if (isset($_GET['cat'])) {
         $cats = explode("_", $_GET['cat']);
         $category = $cats[0];
-        $subcategory = $cats[1];
+        $subcategory = explode("_", $cats[1])[0];
     } else {
         $category = "all";
         $subcategory = "all";

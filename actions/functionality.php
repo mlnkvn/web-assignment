@@ -191,25 +191,54 @@ function updateUserWithoutPwd($con, $userId, $userFullName, $username, $userEmai
     exit();
 }
 
-//function getItemsWith($con, $cat, $pageBack) {
-//    $sql = "SELECT * FROM `items` WHERE 1;";
-//    if ($cat !== "all") {
-//        $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
-//    }
-//    $stmt = mysqli_stmt_init($con);
-//    if (!mysqli_stmt_prepare($stmt, $sql)) {
-//        header($pageBack);
-//        exit();
-//    }
-//    mysqli_stmt_bind_param($stmt, "s", $cat);
-//    mysqli_stmt_execute($stmt);
-//    $result = mysqli_stmt_get_result($stmt);
-//    while($row = mysql_fetch_assoc($result)){
-////        foreach($row as $key => $val){
-////            echo $key . ": " . $val . "<BR />";
-////        }
-//    }
-//    header($pageBack);
-//    exit();
-//}
+function getItemsWith($con, $cat, $subcat)
+{
+    if ($cat === "all") {
+        $sql = "SELECT * FROM `items` WHERE 1;";
+    } else if ($subcat === "all") {
+        $sql = "SELECT * FROM `items` WHERE itemCategory=?;";
+    } else {
+        $sql = "SELECT * FROM `items` WHERE itemCategory=? AND itemSubCategory=?;";
+    }
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    if ($cat === "all") {
+        //
+    } else if ($subcat === "all") {
+        mysqli_stmt_bind_param($stmt, "s", $cat);
+    } else {
+        mysqli_stmt_bind_param($stmt, "ss", $cat, $subcat);
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $it = array();
+        foreach ($row as $key => $val) {
+            $it[] = $val;
+        }
+        $arr[] = $it;
+    }
+    return $arr;
+}
+
+function getItemWithId($con, $id)
+{
+    $sql = "SELECT * FROM `items` WHERE itemId=?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($res);
+    $arr = array();
+    foreach ($row as $key => $val) {
+        $arr[] = $val;
+    }
+    return $arr;
+}
 ?>

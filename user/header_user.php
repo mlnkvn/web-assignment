@@ -32,7 +32,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a href="indexuser.php" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="categoryuser.php" class="nav-link">Categories</a></li>
+            <li class="nav-item"><a href="categoryuser.php?cat=all_all" class="nav-link">Categories</a></li>
             <li class="nav-item"><a href="shopping_cartuser.php" class="nav-link">Shopping Cart</a></li>
             <!--            TODO                 -->
             <li class="nav-item">

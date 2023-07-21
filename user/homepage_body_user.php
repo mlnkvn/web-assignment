@@ -3,7 +3,7 @@
         S O C K C E S S
     </div>
     <div class="blurred-background">
-    <a class="blurred-link" href="categoryuser.php">
+    <a class="blurred-link" href="categoryuser.php?cat=all_all">
         <span class="blurred-text">Get started</span>
     </a>
     </div>

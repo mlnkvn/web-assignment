@@ -10,7 +10,7 @@
         </div>
         <div class="items cart">
             <i class="fa fa-shopping-cart"></i>
-            <a id="item-dest" href="login.php">
+            <a id="item-dest" class="item-dest-cl" href="login.php">
                 <span id="add-to-cart">ADD TO CART</span>
                 <span id="remove-from-cart"></span>
             </a>
