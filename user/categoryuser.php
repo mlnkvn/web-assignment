@@ -93,7 +93,8 @@ require_once '../actions/functionality.php';
                         imgElement.querySelector('.item-name').innerHTML = items[ind][3];
                         imgElement.querySelector('.price').innerHTML = items[ind][4] + '€';
                         imgElement.style.backgroundSize = "contain";
-                        imgElement.querySelector("#item-dest").href = location.href + "_" + items[ind][0].toString() + "#shadowed-back";
+                        console.log(ind + ': ' +window.location.href + " + _ + " + items[ind][0].toString());
+                        imgElement.querySelector("#item-dest").href = window.location.href + "_" + items[ind][0].toString() + "#shadowed-back";
                     }
                     row.appendChild(cell);
                 }

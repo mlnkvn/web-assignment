@@ -4,7 +4,7 @@
         $cats = explode("_", $_GET['cat']);
         $category = $cats[0];
         $subcategory = $cats[1];
-        $id = explode("_", $cats[2])[0];
+        $id = explode("#", $cats[2])[0];
     }
     $item = getItemWithId($con, $id);
 

@@ -299,15 +299,25 @@ function getExistingItem($con, $ordId, $idIt, $pickedSize)
     }
 }
 
+function increaseOrderAmount($con, $curOrder, $price) {
+    $id = $curOrder['orderId'];
+    $amount = $curOrder['orderAmount'] + 1;
+    $total = $curOrder['orderTotal'] + $price;
+    $sql = "UPDATE orders SET orderAmount = ?, orderTotal = ? WHERE orderId = ?";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "sss", $amount, $total, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return true;
+}
+
 // adds item with itId to order with ordId
 function addToOrder($con, $item, $pickedSize, $curOrder)
 {
-//    $usId = $_SESSION["userId"];
     $itId = $item[0];
-
-//    $curOrder = getActiveOrder($con, $usId);
-
-
     $_SESSION["orderId"] = $curOrder['orderId'];
     $existItem = getExistingItem($con, $curOrder['orderId'], $itId, $pickedSize);
     if ($existItem === false) {
@@ -321,7 +331,7 @@ function addToOrder($con, $item, $pickedSize, $curOrder)
         mysqli_stmt_close($stmt);
     } else {
         $id = $existItem['lineId'];
-        $amount = $existItem['itemsAmount'];
+        $amount = $existItem['itemsAmount'] + 1;
         $sql = "UPDATE orderedItems SET itemsAmount = ? WHERE lineId = ?;";
         $stmt = mysqli_stmt_init($con);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -331,6 +341,7 @@ function addToOrder($con, $item, $pickedSize, $curOrder)
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
+    increaseOrderAmount($con, $curOrder, $item[4]);
     return true;
 
 }
