@@ -259,7 +259,8 @@ function createOrder($con, $usId)
 }
 
 //get active order for user with usId
-function getActiveOrder($con, $usId) {
+function getActiveOrder($con, $usId)
+{
     $sql = "SELECT * FROM `orders` WHERE userId = ? AND orderStatus = 0;";
     $stmt = mysqli_stmt_init($con);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -299,7 +300,8 @@ function getExistingItem($con, $ordId, $idIt, $pickedSize)
     }
 }
 
-function increaseOrderAmount($con, $curOrder, $price) {
+function increaseOrderAmount($con, $curOrder, $price)
+{
     $id = $curOrder['orderId'];
     $amount = $curOrder['orderAmount'] + 1;
     $total = $curOrder['orderTotal'] + $price;
@@ -345,6 +347,7 @@ function addToOrder($con, $item, $pickedSize, $curOrder)
     return true;
 
 }
+
 function addToCart($con, $it, $pickedSz)
 {
     session_start();
@@ -357,4 +360,44 @@ function addToCart($con, $it, $pickedSz)
     addToOrder($con, $it, $pickedSz, $curOrd);
     return true;
 }
+
+// gets item info for shopping cart
+function getItemInfo($con, $itemId)
+{
+    $sql = "SELECT * FROM `items` WHERE itemId = ?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $itemId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_assoc($result);
+}
+
+function getItemsFromOrder($con, $orderId)
+{
+    $sql = "SELECT * FROM `orderedItems` WHERE orderId = ?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $orderId);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $it = array();
+        foreach ($row as $key => $val) {
+            $it[] = $val;
+        }
+        $itId = $it[1];
+        $itInfo = getItemInfo($con, $itId);
+        // [itemId, itemsAmount, itemSize, itemName, itemAmount * itemPrice, picLink]
+        $itemInfoFull = array($itId, $it[2], $it[4], $itInfo['itemName'], $it[2] * $itInfo['itemPrice'], $itInfo['picLink']);
+        $arr[] = $itemInfoFull;
+    }
+    return $arr;
+}
+
 ?>

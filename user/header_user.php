@@ -40,7 +40,6 @@
                     <button class="dropbtn">My Account</button>
                     <div class="dropdown-content">
                         <a href="edituser.php">Edit profile</a>
-                        <a href="addressuser.php">Address Management</a>
                         <a href="ordersuser.php">My orders</a>
                         <a href="logoutuser.php">Log out</a>
                     </div>
