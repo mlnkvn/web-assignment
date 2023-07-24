@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost:8889
--- Время создания: Июл 21 2023 г., 21:38
+-- Время создания: Июл 24 2023 г., 14:30
 -- Версия сервера: 5.7.39
 -- Версия PHP: 7.4.33
 
@@ -69,6 +69,15 @@ CREATE TABLE `orderedItems` (
   `itemSize` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `orderedItems`
+--
+
+INSERT INTO `orderedItems` (`lineId`, `itemId`, `itemsAmount`, `orderId`, `itemSize`) VALUES
+(5, 2, 1, 2, 0),
+(6, 6, 2, 2, 0),
+(7, 1, 2, 2, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +91,39 @@ CREATE TABLE `orders` (
   `orderTotal` int(255) NOT NULL,
   `orderStatus` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`orderId`, `userId`, `orderAmount`, `orderTotal`, `orderStatus`) VALUES
+(2, 2, 5, 25, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `posts`
+--
+
+CREATE TABLE `posts` (
+  `postId` int(11) NOT NULL,
+  `postCategory` varchar(128) DEFAULT NULL,
+  `postTitle` varchar(128) NOT NULL,
+  `postPicLink` varchar(255) NOT NULL,
+  `postText` text NOT NULL,
+  `postDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `posts`
+--
+
+INSERT INTO `posts` (`postId`, `postCategory`, `postTitle`, `postPicLink`, `postText`, `postDate`) VALUES
+(1, NULL, 'Why SOCKCESS?', 'post1.png', 'Some text for post1', '2023-07-20'),
+(2, 'pattern', 'Socks for this summer', 'post2.png', 'New arrivals! Go and check out cool socks that would suit you the most this summer!', '2023-07-24'),
+(3, NULL, 'Why socks with memes became popular?', 'post3.png', 'We\'ve conducted a survey and found out most common reasons why socks with memes are cool.', '2023-07-24'),
+(4, NULL, 'Express yourself with SOCKCESS!', 'post5.png', 'Look stylish and fresh even in office, school and uni with our socks!', '2023-07-24'),
+(5, 'memes', 'Socks with memes with memes will never be enough', 'post4.png', 'New arrivals in catigory \'With memes\'', '2023-07-24');
 
 -- --------------------------------------------------------
 
@@ -131,6 +173,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderId`);
 
 --
+-- Индексы таблицы `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`postId`);
+
+--
 -- Индексы таблицы `users`
 --
 ALTER TABLE `users`
@@ -150,13 +198,19 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT для таблицы `orderedItems`
 --
 ALTER TABLE `orderedItems`
-  MODIFY `lineId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `lineId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `orderId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
