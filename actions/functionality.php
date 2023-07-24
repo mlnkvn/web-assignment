@@ -400,4 +400,53 @@ function getItemsFromOrder($con, $orderId)
     return $arr;
 }
 
+function cmpPosts($a, $b)
+{
+    if ($a[5] == $b[5]) {
+        return 0;
+    }
+    return ($a[5] > $b[5]) ? -1 : 1;
+}
+
+function getRecentPosts($con) {
+    $sql = "SELECT * FROM `posts` WHERE postCategory is NULL;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $it = array();
+        foreach ($row as $key => $val) {
+            $it[] = $val;
+        }
+        $arr[] = $it;
+    }
+    usort($arr, "cmpPosts");
+    return $arr;
+}
+
+
+function getCategoryPosts($con) {
+    $sql = "SELECT * FROM `posts` WHERE postCategory is not NULL;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $it = array();
+        foreach ($row as $key => $val) {
+            $it[] = $val;
+        }
+        $arr[] = $it;
+    }
+//    usort($arr, "cmpPosts");
+    return $arr;
+}
+
 ?>
