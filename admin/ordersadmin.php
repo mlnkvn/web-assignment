@@ -2,6 +2,11 @@
 include_once 'header_admin.php'
 ?>
 
+<?php
+session_start();
+$myId = $_SESSION['userId'];
+?>
+
 <div>
     <h2 style="text-align: center; margin-top: 7%;">All orders</h2>
     <table id="orders-admin-table" class="genericTable" style="border: rgba(192,94,0,0.94); margin-left:auto; margin-right:auto;
@@ -33,7 +38,7 @@ include_once 'header_admin.php'
 
     <?php
     require_once '../actions/db.php';
-    $sql = "SELECT `orderId`, `orderDate`, `userId`, `orderAmount`, `orderTotal`, `orderStatus`  FROM `orders` WHERE 1;";
+    $sql = "SELECT `orderId`, `orderDate`, `userId`, `orderAmount`, `orderTotal`, `orderStatus`, `orderDestination`  FROM `orders` WHERE 1;";
     $stmt = mysqli_stmt_init($con);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -57,7 +62,7 @@ include_once 'header_admin.php'
         table.style.tableLayout = "auto";
         var orders = <?php echo json_encode($ordersPHP); ?>;
         // Create table row and insert fetched HTML content into a single cell
-        const headerTitles = ["ID", "Date", "Buyer Id", "Items amount", "Total", "Status", "Edit", "Delete"]
+        const headerTitles = ["ID", "Date", "Buyer Id", "Items amount", "Total", "Status", "Delivery address", "Edit", "Delete"]
         const header = document.createElement("tr");
         for (let i = 0; i < headerTitles.length; ++i) {
             const cell = document.createElement("th");
@@ -80,21 +85,25 @@ include_once 'header_admin.php'
                     const stats = ['Not payed', 'Processed'];
                     cell.innerHTML = stats[orders[j][i]];
                 }
+                if (headerTitles[i] === 'Delivery address' && orders[j][i] == null) {
+                    cell.innerHTML = "No address was provided yet";
+                }
                 row.appendChild(cell);
             }
             const cell1 = document.createElement("td");
             cell1.innerHTML = tableElementHTML;
             cell1.style.width = "fit-content";
             cell1.addEventListener('click', function () {
-                window.location.href = "edit_user_page.php?id=" + users[j][0] + "&fullname=" + users[j][1] + "&userlevel=" + users[j][4] + "&username=" + users[j][3] + "&useremail=" + users[j][2] + "&useraddress=" + users[j][5];
+                // const headerTitles = ["ID", "Date", "Buyer Id", "Items amount", "Total", "Status", "Delivery address", "Edit", "Delete"]
+                window.location.href = "edit_order_page.php?id=" + orders[j][0] + "&userId=" + orders[j][2] + "&status=" + orders[j][5] + "&address=" + orders[j][6];
             });
             row.appendChild(cell1);
             const cell2 = document.createElement("td");
             cell2.innerHTML = tableElementHTML;
             cell2.querySelector(".button-img").src = "img/cancel_icon.png";
             cell2.addEventListener('click', function () {
-                alert("Are you sure you want to delete " + users[j][1] + "?");
-                window.location.href = "../actions/delete_user_script.php?userId=" + users[j][0] + "&admId=" + "<?php echo $myId; ?>";
+                alert("Are you sure you want to delete order №" + orders[j][0] + "?");
+                window.location.href = "../actions/delete_order_script.php?orderId=" + orders[j][0] + "&admId=" + "<?php echo $myId; ?>";
             });
             row.appendChild(cell2);
             table.appendChild(row);
@@ -103,5 +112,6 @@ include_once 'header_admin.php'
 
 
 </script>
-</body>
-</html>
+<?php
+include_once 'footer.php';
+?>

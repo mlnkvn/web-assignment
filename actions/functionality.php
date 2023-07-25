@@ -462,4 +462,44 @@ function deleteUser($userId, $prevLocation) {
     mysqli_stmt_close($stmt);
 }
 
+function cleanOrderedItems($con, $orderId) {
+    $sql = "DELETE FROM `orderedItems` WHERE orderId=?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        return false;
+    }
+    mysqli_stmt_bind_param($stmt, "s", $orderId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return true;
+}
+
+function removeOrderedItem($con, $itemId) {
+    $sql = "DELETE FROM `orderedItems` WHERE itemId=?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        return false;
+    }
+    mysqli_stmt_bind_param($stmt, "s", $itemId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    return true;
+}
+
+function deleteOrder($orderId, $prevLocation) {
+    require_once 'db.php';
+    if (!cleanOrderedItems($con, $orderId)) {
+        header("location: ".$prevLocation."?error=stmtfailed");
+        exit();
+    }
+    $sql = "DELETE FROM `orders` WHERE orderId=?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ".$prevLocation."?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $orderId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
 ?>
