@@ -8,7 +8,7 @@ $myId = $_SESSION['userId'];
 ?>
 
 <div>
-    <table id="users-table" class="genericTable" style="border: rgba(192,94,0,0.94)">
+    <table id="users-table" class="genericTable" style="border: rgba(192,94,0,0.94); margin-top: 7%;">
         <!-- Table content will be generated dynamically here -->
     </table>
 </div>
@@ -76,7 +76,6 @@ $myId = $_SESSION['userId'];
             xhr.open('GET', url, true);
             xhr.send();
         }
-        console.log(users);
         // Create table row and insert fetched HTML content into a single cell
         const headerTitles = ["ID", "Full Name", "Email", "Username", "Level", "Delivery Address", "Edit", "Delete"]
         const header = document.createElement("tr");

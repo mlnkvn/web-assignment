@@ -1,8 +1,8 @@
 <?php
+$usersLevel = $_SESSION["level"];
 if (isset($_POST["edit-submit"])) {
     session_start();
     $prevUid = $_SESSION["username"];
-    $usersLevel = $_SESSION["level"];
     $userFullName = $_POST["userFullName"];
     $username = $_POST["userLogin"];
     $userEmail = $_POST["userEmail"];
@@ -52,7 +52,7 @@ if (isset($_POST["edit-submit"])) {
             } else {
                 header("location: ../admin/settingsadmin.php?error=passwordmismatch");
             }
-            
+
             exit();
         }
 
@@ -60,6 +60,16 @@ if (isset($_POST["edit-submit"])) {
     } else {
         updateUserWithoutPwd($con, $userId, $userFullName, $username, $userEmail, $address, $usersLevel);
     }
+} else if ($_GET["delete"] === "true") {
+    session_start();
+    $id = $_SESSION["userId"];
+    require_once 'functionality.php';
+    if ($usersLevel === 0) {
+        deleteUser($id, "../user/edituser.php");
+    } else {
+        deleteUser($id, "../admin/settingsadmin.php");
+    }
+    header("location: ../login.php");
 } else {
     if ($usersLevel === 0) {
         header("location: ../user/edituser.php");

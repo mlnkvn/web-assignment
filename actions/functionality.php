@@ -449,4 +449,17 @@ function getCategoryPosts($con) {
     return $arr;
 }
 
+function deleteUser($userId, $prevLocation) {
+    require_once 'db.php';
+    $sql = "DELETE FROM `users` WHERE usersId=?;";
+    $stmt = mysqli_stmt_init($con);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ".$prevLocation."?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $userId);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
 ?>

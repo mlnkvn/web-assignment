@@ -6,6 +6,18 @@
 }
 #users-table {
     background: rgb(255, 255, 255);
+    padding-top: 100px;
+}
+
+#orders-admin-table td, th {
+    border: 1px solid rgb(40, 2, 2);
+    width: fit-content;
+    text-align: center;
+
+}
+#orders-admin-table {
+    background: rgb(255, 255, 255);
+    padding-top: 100px;
 }
 .button-edit {
     width: fit-content;

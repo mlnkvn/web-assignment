@@ -82,8 +82,15 @@
                         </div>
                     </div>
                     <input type="submit" name="edit-submit" value="Save Changes" />
+                    <input type="button" name="edit-delete-account" onclick="delete_user()" value="Delete account" style="color: rgba(234,0,2,0.94)" />
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function delete_user() {
+        window.location.href = "../actions/editscript.php?delete=true";
+    }
+</script>

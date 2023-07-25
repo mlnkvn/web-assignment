@@ -1,0 +1,11 @@
+#orders-table td, th {
+    border: 1px solid rgb(40, 2, 2);
+    width: fit-content;
+    text-align: center;
+
+}
+#orders-table {
+    background: rgb(255, 255, 255);
+    padding-top: 100px;
+    margin: 3% auto auto;
+}
