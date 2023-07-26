@@ -1,11 +1,11 @@
 <?php
 include_once 'header_admin.php'
-?>
+    ?>
 
 <?php
 function getItemsWith($cat, $subcat)
 {
-    require_once '../actions/db.php';
+    require '../actions/db.php';
     if ($cat === "all") {
         $sql = "SELECT * FROM `items` WHERE 1;";
     } else if ($subcat === "all") {
@@ -57,10 +57,9 @@ function delete_item($id)
     return "success"; //"Item with ID " . $id . " deleted successfully!";
 }
 
-
-
 ?>
-<!--Side navigation bar-->
+
+
 <div style="width: 100%; margin-top: 7%">
     <div class="side-nav-categories" style="width: 20%; float: left;">
         <div class="title"><strong>Category</strong></div>
@@ -127,7 +126,6 @@ function delete_item($id)
     }
     $itemsPHP = getItemsWith($category, $subcategory);
 
-
     if (isset($_GET['funcAction']) && isset($_GET['function'])) {
         $action = $_GET['funcAction'];
         $functionName = $_GET['function'];
@@ -142,11 +140,11 @@ function delete_item($id)
     ?>
 
     function buildTable(tableElementHTML, tableId) {
+        console.log("BUILD CALLED");
         const table = document.getElementById(tableId);
+        table.innerHTML = '';
         var items = <?php echo json_encode($itemsPHP); ?>;
 
-
-    
         function deleteItem(itemId) {
             var xhr = new XMLHttpRequest();
             var url = '?mode=delete&funcAction=executeFunc&function=delete_item&arguments=' + JSON.stringify(itemId);
@@ -210,8 +208,24 @@ function delete_item($id)
         }
     }
 
+    // function executePHPFunction(functionName, arguments) {
+    //     var xhr = new XMLHttpRequest();
+    //     var url = '?action=execute&function=' + functionName + '&arguments=' + JSON.stringify(arguments);
+    //     xhr.open('GET', url, true);
+    //     console.log(arguments)
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    //             var result = xhr.responseText;
+    //             // console.log(result); // Display the result in the console or update the page as needed
+    //         }
+    //     };
+    //     xhr.send();
+    // }
+
+
 
 </script>
 
 </body>
+
 </html>
