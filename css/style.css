@@ -339,6 +339,23 @@ body {
 
 .navbar-nav {
     float: left;
+    margin-right: 0;
+}
+
+.navbar-nav li {
+    padding: 8px 65px;
+}
+
+.navbar-nav li a {
+    font-size: 14px;
+}
+
+#search {
+    width: 150px;
+}
+
+#submit {
+    width: 70px;
 }
 
 .navbar {

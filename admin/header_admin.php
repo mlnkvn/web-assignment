@@ -31,6 +31,13 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <form action="/actions/searchscript.php" method="POST">
+                    <label for="search"></label>
+                    <input id="search" type="text" name="search" placeholder="Type here">
+                    <input id="submit" type="submit" name="submit" value="Search">
+                </form>
+            </li>
             <li class="nav-item"><a href="indexadmin.php" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="categoryadmin.php" class="nav-link">Category Page</a></li>
 
