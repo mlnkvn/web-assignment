@@ -52,8 +52,6 @@ function delete_item($id)
     }
     mysqli_stmt_bind_param($stmt, "s", $id);
     mysqli_stmt_execute($stmt);
-    // $result = mysqli_stmt_get_result($stmt);
-    // echo $result;
     return "success"; //"Item with ID " . $id . " deleted successfully!";
 }
 
@@ -144,7 +142,6 @@ function delete_item($id)
         const table = document.getElementById(tableId);
         table.innerHTML = '';
         var items = <?php echo json_encode($itemsPHP); ?>;
-
         function deleteItem(itemId) {
             var xhr = new XMLHttpRequest();
             var url = '?mode=delete&funcAction=executeFunc&function=delete_item&arguments=' + JSON.stringify(itemId);
@@ -161,7 +158,6 @@ function delete_item($id)
             xhr.open('GET', url, true);
             xhr.send();
         }
-
 
 
         // Create table row and insert fetched HTML content into a single cell

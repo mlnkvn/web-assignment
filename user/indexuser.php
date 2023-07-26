@@ -21,5 +21,5 @@ include 'homepage_body_user.php';
 </div> -->
 
 <?php
-include_once 'footer.php';
+include_once '../footer.php';
 ?>

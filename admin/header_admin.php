@@ -8,8 +8,15 @@
     <title>WebAssignment</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="../actions/error-handling.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        function check_input() {
+            return document.getElementById("search").value != null && document.getElementById("search").value != "";
+        }
+    </script>
 </head>
 
 <body>
@@ -30,7 +37,14 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="indexadmin.php" class="nav-link active">Home</a></li>
+            <li class="nav-item">
+                <form action="/actions/searchscript.php" method="POST" onsubmit="return check_input()">
+                    <label for="search"></label>
+                    <input id="search" type="text" name="search" placeholder="Type here">
+                    <input id="submit" type="submit" name="submit" value="Search">
+                </form>
+            </li>
+            <li class="nav-item"><a href="indexadmin.php" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="categoryadmin.php" class="nav-link">Category Page</a></li>
 
             <li class="nav-item">
@@ -39,7 +53,6 @@
                     <div class="dropdown-content">
                         <a href="settingsadmin.php">Edit account</a>
                         <a href="usersadmin.php">User management</a>
-                        <a href="contentadmin.php">Content Management</a>
                         <a href="ordersadmin.php">Orders management</a>
                         <a href="logoutadmin.php">Log out</a>
                     </div>

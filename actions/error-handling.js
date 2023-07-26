@@ -1,5 +1,5 @@
 function checkText(a) {
-    return a != "" && a != null
+    return a !== "" && a !== null
 }
 
 function checkField(fieldName) {
@@ -8,8 +8,10 @@ function checkField(fieldName) {
     if (!checkText(document.getElementById(fieldName).value)) {
         document.getElementById(errorName).style.visibility = "visible";
         event.preventDefault();
+        return false;
     } else {
         document.getElementById(errorName).style.visibility = "hidden";
+        return true;
     }
 }
 
@@ -25,8 +27,8 @@ function checkPwd(pwd1, pwd2, pwd3) {
 }
 
 function checkForm() {
-    var fieldArray = ["userFullName", "userLogin", "userEmail", "inputAddress"];
-    var pwdArray = ["oldPwd", "newPwd","newPwdRepeat"];
+    const fieldArray = ["userFullName", "userLogin", "userEmail", "inputAddress"];
+    const pwdArray = ["oldPwd", "newPwd","newPwdRepeat"];
     for (let i = 0; i < fieldArray.length; i++) {
         checkField(fieldArray[i]);
     }
@@ -44,3 +46,19 @@ function hideError() {
     document.getElementById("error-msg").style.display = "none";
 }
 
+function checkPostForm() {
+    const fieldArray = ['postTitle', 'postPicLink', 'postText', 'postDate'];
+    for (let i = 0; i < fieldArray.length; i++) {
+        checkField(fieldArray[i]);
+    }
+    return true;
+}
+
+function checkoutForm() {
+    const fieldArray = ["fname", "email", "adr", "city", "state", "zip", "cname", "ccnum", "expmonth", "expyear", "cvv"];
+    let res = true;
+    for (let i = 0; i < fieldArray.length; i++) {
+        res = res && checkField(fieldArray[i]);
+    }
+    return res;
+}
