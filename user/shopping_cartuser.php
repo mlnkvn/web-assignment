@@ -21,14 +21,8 @@ require_once '../actions/functionality.php';
     </table>
 </div>
 
-<script>
-    function proceed_to_pay() {
-        document.location = "shopping_cartuser.php";
-    }
-</script>
-
 <div style="text-align:center; margin-right: auto; margin-left: auto; margin-bottom: 50px; width: 300px">
-    <button id="pay" onclick="proceed_to_pay()">Pay</a>
+    <button id="pay">Pay</button>
 </div>
 
 <script type="text/javascript">
@@ -40,7 +34,7 @@ require_once '../actions/functionality.php';
 
     <?php
     session_start();
-
+    // echo $_SESSION['userId'];
     $curOrder = getActiveOrder($con, $_SESSION['userId']);
     $orderItems = array();
     if ($curOrder !== false) {
@@ -57,6 +51,7 @@ require_once '../actions/functionality.php';
             exit();
         }
     }
+
 
     function delete_item($id)
     {
@@ -80,12 +75,35 @@ require_once '../actions/functionality.php';
 
     ?>
 
+    // function sendDataToDatabase(data) {
+    //     // Convert the data to a JSON string
+    //     const jsonData = JSON.stringify(data);
+
+    //     // Create an XMLHttpRequest object
+    //     const xhr = new XMLHttpRequest();
+
+    //     // Configure the AJAX request
+    //     xhr.open('POST', 'save_data.php', true);
+    //     xhr.setRequestHeader('Content-Type', 'application/json');
+
+    //     // Set up a callback function to handle the response
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    //             // Handle the response from the server if needed
+    //             console.log(xhr.responseText);
+    //         }
+    //     };
+
+    //     // Send the data to the server
+    //     xhr.send(jsonData);
+    // }
+
     function buildCartTable(tableId) {
         const table_ = document.getElementById(tableId);
         const table = document.createElement("tbody");
         // [itemId, itemsAmount, itemSize, itemName, itemAmount * itemPrice, picLink]
         const items = <?php echo json_encode($orderItems); ?>;
-        // console.log(items);
+        console.log(items);
 
 
         function deleteItem(itemId) {
@@ -120,10 +138,10 @@ require_once '../actions/functionality.php';
                     </div>`
             cell2.querySelector('.delete-btn').src = "../img/cancel_icon.png";
             (function (itemId) {
-                        cell2.querySelector('.buttons-cart').addEventListener('click', function () {
-                            deleteItem(itemId);
-                        });
-                    })(items[j][0]);
+                cell2.querySelector('.buttons-cart').addEventListener('click', function () {
+                    deleteItem(itemId);
+                });
+            })(items[j][0]);
 
             row.appendChild(cell2);
 
@@ -142,6 +160,7 @@ require_once '../actions/functionality.php';
                 <span class="item-name-cart"></span>
                 </div>`
             cell3.querySelector('.item-name-cart').innerHTML = items[j][3];
+            // cell3.name = items[j][0];
             row.appendChild(cell3);
 
             const cell4 = document.createElement("td");
@@ -149,7 +168,7 @@ require_once '../actions/functionality.php';
             <button class="edit-btn minus-btn" type="button" name="button">
                 <p>-</p>
             </button>
-            <input type="text" name="name" class="amount-item-cart" value="1">
+            <input type="text" id="quantity-label" name="name" class="amount-item-cart" value="1">
         
             <button class="edit-btn plus-btn" type="button" name="button">
                 <p>+</p>
@@ -202,6 +221,32 @@ require_once '../actions/functionality.php';
             table.appendChild(row);
         }
         table_.appendChild(table);
+
+        document.getElementById("pay").addEventListener('click', function () {
+
+            // console.log('clicked');
+            // const table = document.getElementById('shopping-cart-table');
+
+            // // Initialize an array to hold the data rows
+            // const data = [];
+
+            // // Iterate through each row in the table (skip the header row)
+            // for (let i = 1; i < table.rows.length; i++) {
+            //     const row = table.rows[i];
+            //     total = row.cells[4].querySelector('.total-price-cart').innerHTML;
+            //     const rowData = {
+            //         id: row.cells[2].name,
+            //         amount: parseInt(row.cells[3].querySelector(".amount-item-cart").value),
+            //         total: parseInt(total.substring(0, total.length - 1))
+            //     };
+            //     data.push(rowData);
+            // }
+            // // Call a function to send the data to the server using AJAX
+            // sendDataToDatabase(data);
+            if (items.length != 0) {
+                document.location = "order_submit.php";
+            }
+        });
 
     }
 </script>

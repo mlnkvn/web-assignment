@@ -11,6 +11,7 @@ function processOrder($con, $orderId, $date, $address)
     mysqli_stmt_bind_param($stmt, "sss", $date, $address, $orderId);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    $_SESSION['orderingStatus'] = false;
     header("location: ../user/ordersuser.php?error=none");
     exit();
 }

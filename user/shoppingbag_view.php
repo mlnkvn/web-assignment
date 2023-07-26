@@ -12,12 +12,13 @@
         </div>
 
         <div class="quantity-cart">
-            <button class="plus-btn" type="button" name="button">
-                <img src="plus.svg" alt=""/>
+        <button class="edit-btn" class="minus-btn" type="button" name="button">
+                <p>-</p>
             </button>
             <input type="text" name="name" class="amount-item-cart" value="1">
-            <button class="minus-btn" type="button" name="button">
-                <img src="minus.svg" alt=""/>
+    
+            <button class="edit-btn" class="plus-btn" type="button" name="button">
+                <p>+</p>
             </button>
         </div>
 
