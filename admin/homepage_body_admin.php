@@ -98,9 +98,6 @@
         cell.addEventListener("click", function () {
             window.location.href = "add_post.php";
         })
-        cell.addEventListener("d", function () {
-            window.location.href = "add_post.php";
-        })
         row.appendChild(cell);
         table.appendChild(row);
     }
