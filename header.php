@@ -36,7 +36,7 @@
                         <input id="submit" type="submit" name="submit" value="Search">
                     </form>
                 </li>
-				<li class="nav-item"><a href="index.php" class="nav-link active">Home</a></li> 
+				<li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
 				<li class="nav-item"><a href="category.php" class="nav-link">Categories</a></li>
                 <li class="nav-item"><a href="login.php" class="nav-link">Shopping Cart</a></li>
 				<li class="nav-item"><a href="login.php" class="nav-link">Login/Register</a></li>

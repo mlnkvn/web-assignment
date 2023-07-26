@@ -2,35 +2,49 @@
 include_once 'header_user.php';
 session_start();
 ?>
-
+<?php
+require_once '../actions/db.php';
+require_once '../actions/functionality.php';
+$curOrder = getActiveOrder($con, $_SESSION['userId']);
+$orderItems = array();
+if ($curOrder !== false) {
+    $orderItems = getItemsFromOrder($con, $curOrder['orderId']);
+}
+?>
     <div class="row-checkout" style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 7%;">
         <div class="col-75">
             <div class="container-checkout">
-                <form action="">
+                <form onsubmit="checkoutForm()" method="post" action="../actions/checkout_order.php">
                     <div class="row-checkout">
                         <div class="col-50">
                             <h3>Billing Address</h3>
-                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="date" name="date" id="date" style="display: none;" value=""/>
+                            <input type="text" name="orderId" style="display: none;"
+                                   value="<?php echo $curOrder['orderId']; ?>"/>
+                            <script>
+                                document.getElementById("date").value = new Date().toISOString().substring(0, 10);
+                            </script>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name<img src="../img/error-img.png" alt="Oops!" id="error-fname" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="fname" name="firstname"
                                    value="<?php echo $_SESSION['userFullName'] ?>">
-                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <label for="email"><i class="fa fa-envelope"></i> Email<img src="../img/error-img.png" alt="Oops!" id="error-email" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="email" name="email" value="<?php echo $_SESSION['useremail'] ?>">
-                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address<img src="../img/error-img.png" alt="Oops!" id="error-address" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="adr" name="address" value="<?php
                             if ($_SESSION['userAddress'] !== null) {
                                 echo $_SESSION['userAddress'];
                             }
                             ?>" placeholder="Delivery address">
-                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <label for="city"><i class="fa fa-institution"></i> City<img src="../img/error-img.png" alt="Oops!" id="error-city" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="city" name="city" placeholder="City for delivery">
 
                             <div class="row-checkout">
                                 <div class="col-50">
-                                    <label for="state">State</label>
+                                    <label for="state">State<img src="../img/error-img.png" alt="Oops!" id="error-state" style="width: 6%; visibility: hidden;"></label>
                                     <input type="text" id="state" name="state" placeholder="State">
                                 </div>
                                 <div class="col-50">
-                                    <label for="zip">Zip</label>
+                                    <label for="zip">Zip<img src="../img/error-img.png" alt="Oops!" id="error-zip" style="width: 6%; visibility: hidden;"></label>
                                     <input type="text" id="zip" name="zip" placeholder="10001">
                                 </div>
                             </div>
@@ -45,21 +59,21 @@ session_start();
                                 <i class="fa fa-cc-mastercard" style="color:red;"></i>
                                 <i class="fa fa-cc-paypal" style="color:navy;"></i>
                             </div>
-                            <label for="cname">Name on Card</label>
+                            <label for="cname">Name on Card<img src="../img/error-img.png" alt="Oops!" id="error-cname" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="cname" name="cardname"
                                    placeholder="<?php echo $_SESSION['userFullName']; ?>">
-                            <label for="ccnum">Credit card number</label>
+                            <label for="ccnum">Credit card number<img src="../img/error-img.png" alt="Oops!" id="error-ccnum" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                            <label for="expmonth">Exp Month</label>
+                            <label for="expmonth">Exp Month<img src="../img/error-img.png" alt="Oops!" id="error-expmonth" style="width: 6%; visibility: hidden;"></label>
                             <input type="text" id="expmonth" name="expmonth" placeholder="September">
 
                             <div class="row-checkout">
                                 <div class="col-50">
-                                    <label for="expyear">Exp Year</label>
+                                    <label for="expyear">Exp Year<img src="../img/error-img.png" alt="Oops!" id="error-expyear" style="width: 6%; visibility: hidden;"></label>
                                     <input type="text" id="expyear" name="expyear" placeholder="2024">
                                 </div>
                                 <div class="col-50">
-                                    <label for="cvv">CVV</label>
+                                    <label for="cvv">CVV<img src="../img/error-img.png" alt="Oops!" id="error-cvv" style="width: 6%; visibility: hidden;"></label>
                                     <input type="text" id="cvv" name="cvv" placeholder="352">
                                 </div>
                             </div>
@@ -69,7 +83,7 @@ session_start();
                     <label>
                         <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                     </label>
-                    <input type="submit" value="Continue to checkout" class="btn">
+                    <input type="submit" name="checkout-submit" value="Continue to checkout" class="btn">
                 </form>
             </div>
         </div>
@@ -94,15 +108,6 @@ session_start();
                         buildCartTable("shopping-bag-table");
                     });
 
-                    <?php
-                    require_once '../actions/db.php';
-                    require_once '../actions/functionality.php';
-                    $curOrder = getActiveOrder($con, $_SESSION['userId']);
-                    $orderItems = array();
-                    if ($curOrder !== false) {
-                        $orderItems = getItemsFromOrder($con, $curOrder['orderId']);
-                    }
-                    ?>
 
                     function buildCartTable(tableId) {
                         const table = document.getElementById(tableId);
@@ -137,7 +142,7 @@ session_start();
                         cell.style.width = "90%"
                         row.appendChild(cell);
                         const cell2 = document.createElement("td");
-                        cell2.innerHTML = "<b><?php echo $curOrder['orderTotal'].'€'; ?></b>";
+                        cell2.innerHTML = "<b><?php echo $curOrder['orderTotal'] . '€'; ?></b>";
                         cell2.style.width = "10%";
                         cell2.style.color = "black";
                         row.style.marginLeft = "auto";
