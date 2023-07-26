@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     session_start();
     if (!$_SESSION['loggedIn']) {
         header("Location: ../search.php?q=" . urlencode($searchQuery));
-    } else if ($_SESSION['levelUser'] === 0) {
+    } else if ($_SESSION['level'] === 0) {
         header("Location: ../user/search.php?q=" . urlencode($searchQuery));
     } else {
         header("Location: ../admin/search.php?q=" . urlencode($searchQuery));
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
     session_start();
     if (!$_SESSION['loggedIn']) {
         header("Location: ../index.php");
-    } else if ($_SESSION['levelUser'] === 0) {
+    } else if ($_SESSION['level'] === 0) {
         header("Location: ../user/index.php");
     } else {
         header("Location: ../admin/index.php");

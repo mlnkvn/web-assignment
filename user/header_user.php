@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="../actions/error-handling.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+        function check_input() {
+            return document.getElementById("search").value != null && document.getElementById("search").value != "";
+        }
+    </script>
 </head>
 
 <body>
@@ -34,7 +39,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <form action="../actions/searchscript.php" method="post">
+                <form action="../actions/searchscript.php" method="post" onsubmit="return check_input()">
                     <label for="search"></label>
                     <input id="search" type="text" name="search" placeholder="Type here">
                     <input id="submit" type="submit" name="submit" value="Search">
