@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WebAssignment</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css" />
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet" /> 
 </head>
@@ -28,9 +29,9 @@
 		<!-- </div> -->
 		<div class="collapse navbar-collapse" id="navbarResponsive"> 
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a href="index.php" class="nav-link active">Home</a></li> 
+				<li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
 				<li class="nav-item"><a href="category.php" class="nav-link">Categories</a></li>
-                <li class="nav-item"><a href="shopping_cart.php" class="nav-link">Shopping Cart</a></li>
+                <li class="nav-item"><a href="login.php" class="nav-link">Shopping Cart</a></li>
 				<li class="nav-item"><a href="login.php" class="nav-link">Login/Register</a></li>
 			</ul>
 		</div>

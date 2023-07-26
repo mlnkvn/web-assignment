@@ -732,7 +732,7 @@ hr {
 
 }
 
-/*Category nav bar style BEGIN*/
+/*Category nav bar css BEGIN*/
 
 .side-nav-categories {
     /*position: relative;*/
@@ -821,9 +821,9 @@ ul#category-tabs li a i {
 }
 
 
-/*Category nav bar style END*/
+/*Category nav bar css END*/
 
-/*Product pop-up style BEGIN*/
+/*Product pop-up css BEGIN*/
 #shadowed-back {
     background: rgba(102, 102, 102, 0.5);
     width: 100%;
@@ -1043,10 +1043,10 @@ button {
     color: #F5F5F5;
 }
 
-/*Product pop-up style END*/
+/*Product pop-up css END*/
 
 
-/*Shopping cart style BEGIN*/
+/*Shopping cart css BEGIN*/
 
 .genericShoppingTable {
     /*text-align: right;*/
@@ -1220,4 +1220,4 @@ button {
 /*!*    }*!*/
 /*!*}*!*/
 
-/*Shopping cart style END*/
+/*Shopping cart css END*/

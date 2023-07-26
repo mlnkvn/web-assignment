@@ -43,8 +43,8 @@
         ?>
         const recent_posts = <?php echo json_encode($recentPosts) ?>;
         const category_posts = <?php echo json_encode($categoryPosts) ?>;
-        fetchAndBuildTable("data-table-recent", "../post_view.php", recent_posts);
-        fetchAndBuildTable("data-table-category", "../post_view.php", category_posts);
+        fetchAndBuildTable("data-table-recent", "post_view_admin.php", recent_posts);
+        fetchAndBuildTable("data-table-category", "post_view_admin.php", category_posts);
     });
 
     function fetchAndBuildTable(tableId, phpFileName, posts) {
