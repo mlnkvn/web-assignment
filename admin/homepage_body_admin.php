@@ -1,17 +1,17 @@
 <div class="banner">
     <div id="banner-text">
-    S O C K C E S S
-</div>
+        S O C K C E S S
+    </div>
     <div class="blurred-background">
-    <a class="blurred-link" href="categoryadmin.php">
-        <span class="blurred-text">Get started</span>
-    </a>
+        <a class="blurred-link" href="categoryadmin.php">
+            <span class="blurred-text">Get started</span>
+        </a>
     </div>
 </div>
 
 
 <div class="header-text">
-Recent posts:
+    Recent posts:
 </div>
 
 <div class="table-container">
@@ -22,7 +22,7 @@ Recent posts:
 
 
 <div class="header-text">
-Category posts:
+    Category posts:
 </div>
 
 <div class="table-container">
@@ -91,6 +91,17 @@ Category posts:
             cell.addEventListener('click', redirectToPage)
             row.appendChild(cell);
         }
+        const cell = document.createElement("td");
+        cell.style.background = "url(img/add_icon.png) center no-repeat";
+        cell.style.backgroundSize = "30%";
+        cell.style.width = "380px";
+        cell.addEventListener("click", function () {
+            window.location.href = "add_post.php";
+        })
+        cell.addEventListener("d", function () {
+            window.location.href = "add_post.php";
+        })
+        row.appendChild(cell);
         table.appendChild(row);
     }
 

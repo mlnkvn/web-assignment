@@ -44,3 +44,10 @@ function hideError() {
     document.getElementById("error-msg").style.display = "none";
 }
 
+function checkPostForm() {
+    const fieldArray = ['postTitle', 'postPicLink', 'postText', 'postDate'];
+    for (let i = 0; i < fieldArray.length; i++) {
+        checkField(fieldArray[i]);
+    }
+    return true;
+}
