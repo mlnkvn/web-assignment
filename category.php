@@ -2,6 +2,8 @@
 include_once 'header.php'
 ?>
 <?php
+session_reset();
+
 function getItemsWith($cat, $subcat)
 {
     require_once 'actions/db.php';

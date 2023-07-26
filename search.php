@@ -1,5 +1,7 @@
 <?php
-include_once 'header.php'
+include_once 'header.php';
+session_reset();
+
 ?>
 
 <!DOCTYPE html>

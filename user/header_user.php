@@ -34,7 +34,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <form action="/actions/searchscript.php" method="POST">
+                <form action="../actions/searchscript.php" method="post">
                     <label for="search"></label>
                     <input id="search" type="text" name="search" placeholder="Type here">
                     <input id="submit" type="submit" name="submit" value="Search">

@@ -21,10 +21,25 @@ if (isset($_POST['submit'])) {
 
     mysqli_close($con);
 
-    header("Location: /search.php?q=" . urlencode($searchQuery));
+    session_start();
+    if (!$_SESSION['loggedIn']) {
+        header("Location: ../search.php?q=" . urlencode($searchQuery));
+    } else if ($_SESSION['levelUser'] === 0) {
+        header("Location: ../user/search.php?q=" . urlencode($searchQuery));
+    } else {
+        header("Location: ../admin/search.php?q=" . urlencode($searchQuery));
+    }
     exit();
 } else {
-    header("Location: index.php");
+    session_start();
+    if (!$_SESSION['loggedIn']) {
+        header("Location: ../index.php");
+    } else if ($_SESSION['levelUser'] === 0) {
+        header("Location: ../user/index.php");
+    } else {
+        header("Location: ../admin/index.php");
+    }
+//    header("Location: index.php");
     exit();
 }
 ?>
