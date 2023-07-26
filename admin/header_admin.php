@@ -40,7 +40,6 @@
                     <div class="dropdown-content">
                         <a href="settingsadmin.php">Edit account</a>
                         <a href="usersadmin.php">User management</a>
-                        <a href="contentadmin.php">Content Management</a>
                         <a href="ordersadmin.php">Orders management</a>
                         <a href="logoutadmin.php">Log out</a>
                     </div>
