@@ -354,6 +354,7 @@ function addToCart($con, $it, $pickedSz)
     $curOrd = getActiveOrder($con, $_SESSION["userId"]);
     if ($curOrd === false) {
         createOrder($con, $_SESSION["userId"]);
+        $curOrd = getActiveOrder($con, $_SESSION["userId"]);
     } else {
         $_SESSION["orderingStatus"] = true;
     }

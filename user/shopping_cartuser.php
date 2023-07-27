@@ -136,7 +136,7 @@ require_once '../actions/functionality.php';
             cell2.innerHTML = `<div class="buttons-cart">
                 <img class="delete-btn"/>
                     </div>`
-            cell2.querySelector('.delete-btn').src = "../img/cancel_icon.png";
+            cell2.querySelector('.delete-btn').src = "../admin/img/cancel_icon.png";
             (function (itemId) {
                 cell2.querySelector('.buttons-cart').addEventListener('click', function () {
                     deleteItem(itemId);
