@@ -5,13 +5,15 @@
         $category = $cats[0];
         $subcategory = $cats[1];
         $id = explode("#", $cats[2])[0];
+        $item = getItemWithId($con, $id);
     }
-    $item = getItemWithId($con, $id);
-
-
+    $container = "item-container-class";
+    if (isset($_GET['q'])) {
+        $container = "search-container-class";
+    }
     ?>
     <script>
-        var displayed_items = document.getElementsByClassName("item-container-class");
+        var displayed_items = document.getElementsByClassName("<?php echo $container; ?>");
         for (let i = 0; i < displayed_items.length; i++) {
             displayed_items[i].disable();
         }
@@ -30,6 +32,9 @@
 
             function getPrevHref() {
                 const prevUrl = document.location.href.split('_');
+                if (location.href.search('q=') !== -1) {
+                    return prevUrl[0].split('&cat')[0];
+                }
                 return prevUrl[0] + '_' + prevUrl[1];
             }
         </script>
@@ -48,7 +53,7 @@
         <form method="post" id="buyingForm" action="#" onsubmit="setFormUrl()">
             <script>
                 function setFormUrl() {
-                    const url = "../actions/addingToCart.php?" + location.href.split('?')[1].split('#')[0];
+                    var url = "../actions/addingToCart.php?" + location.href.split('?')[1].split('#')[0];
                     document.getElementById('buyingForm').setAttribute('action', url);
                 }
             </script>
@@ -56,13 +61,17 @@
             <div class="sizes">
                 <?php $chosenSize = -1 ?>
                 <button type="button" name="size1" class="size" onclick="pickSize(0)"
-                        >32-35</button>
+                >32-35
+                </button>
                 <button type="button" name="size2" class="size" onclick="pickSize(1)"
-                        >36-39</button>
+                >36-39
+                </button>
                 <button type="button" name="size3" class="size" onclick="pickSize(2)"
-                        >40-45</button>
+                >40-45
+                </button>
                 <button type="button" name="size4" class="size" onclick="pickSize(3)"
-                        >46+</button>
+                >46+
+                </button>
                 <script>
                     function pickSize(ind) {
                         const sizeButtons = document.getElementsByClassName("size");

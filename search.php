@@ -1,65 +1,95 @@
 <?php
 include_once 'header.php';
 session_reset();
-
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Search Results</title>
-</head>
-<body>
-<div class="container">
-    <?php
-    // Get the search query from the URL parameter
-    $searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+<?php
+require_once 'actions/db.php';
+require_once 'actions/functionality.php';
+?>
 
-    $tmp = htmlspecialchars($searchQuery);
-    //    substr($tmp, 1, -1);
-    //    str_replace("%", "", $tmp);
+<?php
+$searchQuery = isset($_GET['q']) ? $_GET['q'] : '';
+$tmp = htmlspecialchars($searchQuery);
+echo '<h1 align="center" style="margin-top: 7%;">Search Results for: ' . substr($tmp, 1, -1) . '</h1>';
+$sql = "SELECT * FROM `items` WHERE lower(itemName) LIKE ? OR lower(itemDescription) LIKE ?";
+$stmt = mysqli_stmt_init($con);
+if (!mysqli_stmt_prepare($stmt, $sql)) {
+    die('SQL Error: ' . mysqli_error($con));
+}
 
-    // Output the search query
-    echo '<h1>Search Results for: ' . substr($tmp, 1, -1) . '</h1>';
+$searchQuery = '%' . strtolower($searchQuery) . '%';
+mysqli_stmt_bind_param($stmt, "ss", $searchQuery, $searchQuery);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+mysqli_stmt_close($stmt);
 
-    // Connect to the database
-    require_once 'actions/db.php';
-
-    // Prepare the SQL statement
-    $sql = "SELECT * FROM `items` WHERE lower(itemName) LIKE ? OR lower(itemDescription) LIKE ?";
-    $stmt = mysqli_stmt_init($con);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        // Handle any errors here
-        die('SQL Error: ' . mysqli_error($con));
+$foundPHP = array();
+while ($row = mysqli_fetch_assoc($result)) {
+    $arr = array();
+    foreach ($row as $k => $v) {
+        $arr[] = $v;
     }
+    $foundPHP[] = $arr;
+}
+?>
+    <div>
+        <table id="search-table-user" class="genericTable"
+               style="width: 75%; margin-left: auto; margin-right: auto; margin-top: 3%;" align="center">
+            <!-- Table content will be generated dynamically here -->
+        </table>
+    </div>
 
-    // Bind the search query to the SQL statement
-    $searchQuery = '%' . strtolower($searchQuery) . '%';
-    mysqli_stmt_bind_param($stmt, "ss", $searchQuery, $searchQuery);
-    mysqli_stmt_execute($stmt);
+    <script type="text/javascript">
 
-    // Get the result
-    $result = mysqli_stmt_get_result($stmt);
+        document.addEventListener("DOMContentLoaded", function () {
 
-    // Close the statement
-    mysqli_stmt_close($stmt);
+            fetchAndBuildTable("search-table-user", "../item_view.php");
+        });
 
-    // Close the database connection
-    mysqli_close($con);
+        function fetchAndBuildTable(tableId, phpFileName) {
+            // Use AJAX to fetch table element HTML from PHP file
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    const tableElementHTML = this.responseText;
+                    buildTable(tableElementHTML, tableId);
+                }
+            };
 
-    // Display the search results
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Output the item details (you can customize this according to your layout)
-        echo '<div class="item">';
-        echo '<h2>' . htmlspecialchars($row['itemName']) . '</h2>';
-        echo '<p>' . htmlspecialchars($row['itemDescription']) . '</p>';
-        // Add more item details as needed
-        echo '</div>';
-    }
-    ?>
-</div>
-</body>
-</html>
+            xhttp.open("GET", phpFileName, true);
+            xhttp.send();
+        }
+
+        function buildTable(tableElementHTML, tableId) {
+            const table = document.getElementById(tableId);
+            const items = <?php echo json_encode($foundPHP); ?>;
+            // Create table row and insert fetched HTML content into a single cell
+            for (let j = 0; j < 4; j++) {
+                const row = document.createElement("tr");
+                for (let i = 0; i < 3; i++) {
+                    const ind = 3 * j + i;
+                    const cell = document.createElement("td");
+                    if (ind >= items.length) {
+                        row.appendChild(cell);
+                        continue;
+                    }
+                    cell.innerHTML = tableElementHTML;
+                    const imgElement = cell.querySelector('.item-container-class');
+                    if (imgElement) {
+                        imgElement.style.background = "black url(../img/" + items[ind][6] + ')';
+                        imgElement.querySelector('.item-name').innerHTML = items[ind][3];
+                        imgElement.querySelector('.price').innerHTML = items[ind][4] + '€';
+                        imgElement.style.backgroundSize = "contain";
+                    }
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+        }
+
+    </script>
+<?php
+include_once 'popup_card.php';
+include_once 'footer.php';
+?>

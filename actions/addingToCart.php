@@ -11,12 +11,20 @@ if (isset($_POST["submit"])) {
     require_once 'functionality.php';
 
     $item = getItemWithId($con, $id);
-    
+
     addToCart($con, $item, 0);
     $parts = explode('_', $_GET['cat']);
-    header("location: ../user/categoryuser.php?cat=" . $parts[0].'_'.$parts[1]);
+    if (isset($_GET['q'])) {
+        header("location: ../user/search.php?q=" . $_GET['q']);
+    } else {
+        header("location: ../user/categoryuser.php?cat=" . $parts[0] . '_' . $parts[1]);
+    }
     exit();
 } else {
-    header("location: ../user/categoryuser.php?cat=" . $_GET['cat']);
+    if (isset($_GET['q'])) {
+        header("location: ../user/search.php?q=" . $_GET['q']);
+    } else {
+        header("location: ../user/categoryuser.php?cat=" . $_GET['cat']);
+    }
     exit();
 }
