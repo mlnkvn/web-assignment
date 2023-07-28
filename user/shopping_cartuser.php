@@ -79,7 +79,8 @@ require_once '../actions/functionality.php';
             return $fetched['itemsAmount'];
         }
 
-        function removeFromCurrentOrder($con, $orderId, $totalPrice, $amountInOrder) {
+        function removeFromCurrentOrder($con, $orderId, $totalPrice, $amountInOrder)
+        {
             $sql = "UPDATE orders SET orderAmount = ?, orderTotal = ? WHERE orderId = ?";
             $stmt = mysqli_stmt_init($con);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -193,6 +194,8 @@ require_once '../actions/functionality.php';
                     cell4.querySelector(".amount-item-cart").value = amount - 1;
                     amounts[j] = amount - 1;
                     prices[j] = price * (amount - 1);
+                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[j][0].toString() + "&amount=" + (amount - 1).toString();
+
                 });
                 cell4.querySelector('.plus-btn').addEventListener('click', function () {
                     if (parseInt(cell4.querySelector(".amount-item-cart").value) == 100) return;
@@ -203,6 +206,8 @@ require_once '../actions/functionality.php';
                     cell4.querySelector(".amount-item-cart").value = amount + 1;
                     amounts[j] = amount + 1;
                     prices[j] = price * (amount + 1);
+                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[j][0].toString() + "&amount=" + (amount + 1).toString();
+
                 });
 
                 cell4.querySelector('.amount-item-cart').value = items[j][1];
@@ -227,13 +232,17 @@ require_once '../actions/functionality.php';
                 console.log(amounts);
                 console.log(prices);
 
-                for (let i = 0; i < amounts.length - 1; i++) {
-                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i] + "&total=" + prices[i] + "&last=false";
-                }
-                if (items.length !== 0) {
-                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[items.length - 1][0].toString() + "&amount=" + amounts[items.length - 1] + "&total=" + prices[items.length - 1] + "&last=true";
+                var sum = 0;
+                var total = 0;
+                for (let i = 0; i < items.length; i++) {
+                    sum += amounts[i];
+                    total += prices[i];
+                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i];
+                    // console.log("../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i] + "&total=" + prices[i] + "&last=true");
+                    // document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i] + "&total=" + prices[i] + "&last=false";
 
                 }
+                document.location.href = "../actions/set_order_info.php?load=true&amount=" + sum + "&total=" + total;
             });
 
         }
