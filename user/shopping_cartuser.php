@@ -121,6 +121,8 @@ require_once '../actions/functionality.php';
             const table_ = document.getElementById(tableId);
             const table = document.createElement("tbody");
             const items = <?php echo json_encode($orderItems); ?>;
+            const amounts = [];
+            const prices = [];
 
             function deleteItem(itemId) {
                 var xhr = new XMLHttpRequest();
@@ -189,6 +191,8 @@ require_once '../actions/functionality.php';
                     const price = parseInt(price_.substring(0, price_.length - 1)) / amount;
                     row.querySelector('.total-price-cart').innerHTML = price * (amount - 1) + '€';
                     cell4.querySelector(".amount-item-cart").value = amount - 1;
+                    amounts[j] = amount - 1;
+                    prices[j] = price * (amount - 1);
                 });
                 cell4.querySelector('.plus-btn').addEventListener('click', function () {
                     if (parseInt(cell4.querySelector(".amount-item-cart").value) == 100) return;
@@ -197,11 +201,13 @@ require_once '../actions/functionality.php';
                     const price = parseInt(price_.substring(0, price_.length - 1)) / amount;
                     row.querySelector('.total-price-cart').innerHTML = price * (amount + 1) + '€';
                     cell4.querySelector(".amount-item-cart").value = amount + 1;
-
+                    amounts[j] = amount + 1;
+                    prices[j] = price * (amount + 1);
                 });
 
                 cell4.querySelector('.amount-item-cart').value = items[j][1];
                 row.appendChild(cell4);
+                amounts[j] = items[j][1];
 
 
                 const cell5 = document.createElement("td");
@@ -209,19 +215,23 @@ require_once '../actions/functionality.php';
                  <span class="total-price-cart"></span>
                 </div>`
                 cell5.querySelector('.total-price-cart').innerHTML = items[j][4] + '€';
+                prices[j] = items[j][4];
                 row.appendChild(cell5);
                 table.appendChild(row);
             }
             table_.appendChild(table);
 
             document.getElementById("pay").addEventListener('click', function () {
-                const amounts = document.getElementsByClassName("amount-item-cart");
-                const prices = document.getElementsByClassName("total-price-cart");
+                // const amounts = document.getElementsByClassName("amount-item-cart");
+                // const prices = document.getElementsByClassName("total-price-cart");
+                console.log(amounts);
+                console.log(prices);
+
                 for (let i = 0; i < amounts.length - 1; i++) {
-                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i].value + "&total=" + prices[i].innerHTML.replace("€", "") + "&last=false";
+                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[i][0].toString() + "&amount=" + amounts[i] + "&total=" + prices[i] + "&last=false";
                 }
                 if (items.length !== 0) {
-                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[items.length - 1][0].toString() + "&amount=" + amounts[items.length - 1].value + "&total=" + prices[items.length - 1].innerHTML.replace("€", "") + "&last=true";
+                    document.location.href = "../actions/reload_order_info.php?load=true&id=" + items[items.length - 1][0].toString() + "&amount=" + amounts[items.length - 1] + "&total=" + prices[items.length - 1] + "&last=true";
 
                 }
             });

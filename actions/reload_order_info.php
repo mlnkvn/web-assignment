@@ -39,6 +39,8 @@ function changeItemsAmount($con, $amount, $itemId, $ordId) {
     mysqli_stmt_bind_param($stmt, "sss", $amount,  $ordId, $itemId);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+//    echo "<script>console.log('".$itemId.": ".$amount." ". $itemInfo['itemsAmount']."')</script>";
+//    exit();
     return $amount - $itemInfo['itemsAmount'];
 }
 
@@ -47,12 +49,13 @@ if ($_GET["load"] === "true") {
     $amount = $_GET['amount'];
     require_once 'db.php';
     require_once 'functionality.php';
-
     session_start();
     $usId = $_SESSION['userId'];
     $curOrd = getActiveOrder($con, $usId);
 
     $dif = changeItemsAmount($con, $amount, $id, $curOrd['orderId']);
+//    echo "<script>console.log('".$id.": ". $dif ."')</script>";
+//    exit();
     $priceOfOne = getItemsPrice($con, $id);
     $total = $curOrd['orderTotal'] + $dif * $priceOfOne;
     changeCurrentOrder($con, $curOrd['orderId'], $total, $curOrd['orderAmount'] + $dif, $dif);
